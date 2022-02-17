@@ -12,6 +12,6 @@
       "Contracts/*": ["./contracts/*"],
       "Database/*": ["./database/*"]
     },
-    "types": ["@adonisjs/core", "@adonisjs/repl"]
+    "types": ["@adonisjs/core", "jest", "@adonisjs/repl"]
   }
 }
