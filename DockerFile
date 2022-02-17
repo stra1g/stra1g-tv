@@ -1,0 +1,13 @@
+FROM node:lts-alpine
+
+ENV NODE_ENV=development
+
+WORKDIR /home/node
+
+COPY ["package.json", "./"]
+
+RUN yarn
+
+COPY . .
+
+CMD ["yarn", "dev"]
