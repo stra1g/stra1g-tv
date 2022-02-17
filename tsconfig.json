@@ -31,5 +31,7 @@
       "@adonisjs/repl",
       "@adonisjs/lucid"
     ]
-  }
+  },
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true
 }
