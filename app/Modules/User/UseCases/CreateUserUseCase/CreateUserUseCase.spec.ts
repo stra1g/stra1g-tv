@@ -7,7 +7,7 @@ let usersRepositoryInMemory: UsersRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 
 test.group('Create User', (group) => {
-  group.before(() => {
+  group.beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
   });
@@ -26,25 +26,37 @@ test.group('Create User', (group) => {
   });
 
   test('it should not be able to create a new user if username already exists', async (assert) => {
-    const data = {
+    await usersRepositoryInMemory.store({
       name: 'Name test',
       email: 'test@test.com',
       username: 'username_test',
       password: '123456',
-    };
+    });
 
     try {
-      await createUserUseCase.execute(data);
+      await createUserUseCase.execute({
+        name: 'Name test',
+        email: 'test@test.com',
+        username: 'test_username',
+        password: '123456',
+      });
     } catch (error) {
       assert.instanceOf(error, AppException);
     }
   });
 
   test('it should not be able to create a new user if email already exists', async (assert) => {
+    await usersRepositoryInMemory.store({
+      name: 'Name test',
+      email: 'test@test.com',
+      username: 'username_testing',
+      password: '123456',
+    });
+
     const data = {
       name: 'Name test',
-      email: 'email@test.com',
-      username: 'testing_username',
+      email: 'test@test.com',
+      username: 'user_testing',
       password: '123456',
     };
 
