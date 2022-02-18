@@ -8,6 +8,12 @@ export class UsersRepository implements IUser.Repository {
     this.repository = User;
   }
 
+  public async findBy(key: string, value: any): Promise<User | null> {
+    const user = await User.findBy(key, value);
+
+    return user;
+  }
+
   public async store(data: IUser.DTO.Store): Promise<User> {
     const user = await User.create(data);
 

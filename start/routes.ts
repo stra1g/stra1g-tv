@@ -20,6 +20,8 @@
 
 import Route from '@ioc:Adonis/Core/Route';
 
+import 'App/Modules/User/Routes/UserRoutes';
+
 Route.get('/', async () => {
   return { hello: 'world' };
 });

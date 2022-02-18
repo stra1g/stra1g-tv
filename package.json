@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.3.0",
+    "@types/bcrypt": "^5.0.0",
     "adonis-preset-ts": "^2.1.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
@@ -33,6 +34,7 @@
     "@adonisjs/lucid": "^16.3.2",
     "@adonisjs/repl": "^3.1.8",
     "@adonisjs/view": "^6.1.1",
+    "bcrypt": "^5.0.1",
     "luxon": "^2.3.0",
     "pg": "^8.7.3",
     "proxy-addr": "^2.0.7",

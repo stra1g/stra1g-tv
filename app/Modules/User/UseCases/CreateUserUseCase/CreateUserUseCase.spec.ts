@@ -1,6 +1,6 @@
 import AppException from 'App/Shared/Exceptions/AppException';
 import test from 'japa';
-import { UsersRepositoryInMemory } from '../../Repositories/in-memory/UsersRepositoryInMemory';
+import { UsersRepositoryInMemory } from '../../Repositories/In-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;

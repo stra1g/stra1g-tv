@@ -9,6 +9,13 @@ export default class AppProvider {
 
   public async boot() {
     // IoC container is ready
+    await import('../app/Shared/Container');
+    const { BcryptCustom } = await import('./HashDriver');
+    const Hash = this.app.container.use('Adonis/Core/Hash');
+
+    Hash.extend('bcryptCustom', () => {
+      return new BcryptCustom();
+    });
   }
 
   public async ready() {

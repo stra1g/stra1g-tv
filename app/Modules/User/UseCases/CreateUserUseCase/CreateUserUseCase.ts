@@ -1,13 +1,15 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
+import { inject, injectable } from 'tsyringe';
 
 import AppException from 'App/Shared/Exceptions/AppException';
 import { IUser } from '../../Interfaces/IUser';
 import { User } from '../../Models/User';
 
+@injectable()
 export class CreateUserUseCase {
   constructor(
-    // @inject('UsersRepository')
+    @inject('UsersRepository')
     private usersRepository: IUser.Repository
   ) {}
 

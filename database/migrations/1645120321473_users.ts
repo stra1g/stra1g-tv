@@ -7,6 +7,7 @@ export default class Users extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
+      table.string('name').notNullable();
       table.string('username').unique().notNullable();
       table.string('email').unique().notNullable();
       table.string('password').notNullable();
