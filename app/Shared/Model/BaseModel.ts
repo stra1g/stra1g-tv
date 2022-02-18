@@ -3,27 +3,10 @@ import {
   beforeFetch,
   beforeFind,
   beforePaginate,
-  column,
   ModelQueryBuilderContract,
 } from '@ioc:Adonis/Lucid/Orm';
-import { DateTime } from 'luxon';
 
 export class BaseModel extends BaseLucidModel {
-  /**
-   * Columns
-   */
-  @column({ isPrimary: true })
-  public id: string;
-
-  @column()
-  public is_deleted: boolean;
-
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
-
-  @column.dateTime({ autoUpdate: true })
-  public updatedAt: DateTime;
-
   /**
    * Hooks
    */

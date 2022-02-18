@@ -9,7 +9,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=stra1g_tv_database
+      - POSTGRES_DB=stra1g_tv_dev
     expose: 
       - 5432
     volumes:
@@ -21,7 +21,7 @@ services:
     build:
       context: .
       dockerfile: DockerFile
-    container_name: stra1g-tv-app
+    container_name: stra1g-tv
     volumes:
       - .:/home/node
       - /home/node/node_modules
@@ -33,7 +33,21 @@ services:
     env_file:
       - .env
     environment:
-      NODE_ENV: development
+      PORT: ${PORT}
+      HOST: ${HOST}
+      NODE_ENV: ${NODE_ENV}
+      APP_NAME: ${APP_NAME}
+      APP_KEY: ${APP_KEY}
+
+      DB_CONNECTION: ${DB_CONNECTION}
+
+      PG_HOST: postgres
+      PG_PORT: ${PG_PORT}
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DB_NAME: ${PG_DB_NAME}
+      PG_DB_DEBUG: ${PG_DB_DEBUG}
+      PG_SSL: ${PG_SSL}
     networks:
       - app-network
 
