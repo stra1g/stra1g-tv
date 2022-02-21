@@ -1,5 +1,5 @@
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
-import { User } from '../Models/User';
+import User from '../Models/User';
 
 export class UsersRepository implements IUser.Repository {
   public repository: typeof User;

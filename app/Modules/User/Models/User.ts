@@ -3,7 +3,7 @@ import { beforeSave, column } from '@ioc:Adonis/Lucid/Orm';
 import { BaseModel } from 'App/Shared/Model/BaseModel';
 import { DateTime } from 'luxon';
 
-export class User extends BaseModel {
+export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
@@ -18,6 +18,9 @@ export class User extends BaseModel {
 
   @column()
   public password: string;
+
+  @column()
+  public rememberMeToken?: string;
 
   @column()
   public is_deleted: boolean;

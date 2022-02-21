@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppException from 'App/Shared/Exceptions/AppException';
 import { IUser } from '../../Interfaces/IUser';
-import { User } from '../../Models/User';
+import User from '../../Models/User';
 
 @injectable()
 export class CreateUserUseCase {

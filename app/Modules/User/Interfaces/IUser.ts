@@ -1,4 +1,4 @@
-import { User } from '../Models/User';
+import User from '../Models/User';
 
 export namespace IUser {
   export interface Repository extends Helpers {
