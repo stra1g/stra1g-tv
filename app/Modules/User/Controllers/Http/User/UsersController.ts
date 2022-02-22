@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import AppException from 'App/Shared/Exceptions/AppException';
+import { ShowUserProfileUseCase } from 'App/Modules/User/UseCases/ShowUserProfileUseCase/ShowUserProfileUseCase';
 import { container } from 'tsyringe';
 import { CreateUserUseCase } from '../../../UseCases/CreateUserUseCase/CreateUserUseCase';
 
@@ -14,9 +14,13 @@ export default class UsersController {
     return response.json(user);
   }
 
-  public async index() {
-    return {
-      oi: 'ta',
-    };
+  public async show({ response, params }: HttpContextContract): Promise<void> {
+    const { id } = params;
+
+    const showUserProfileUseCase = container.resolve(ShowUserProfileUseCase);
+
+    const foundUser = await showUserProfileUseCase.execute(id);
+
+    return response.json(foundUser);
   }
 }

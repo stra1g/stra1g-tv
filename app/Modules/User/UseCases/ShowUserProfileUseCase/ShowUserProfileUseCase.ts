@@ -1,24 +1,23 @@
-import AppException from 'App/Shared/Exceptions/AppException';
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
-import { AuthContract } from '@ioc:Adonis/Addons/Auth';
 import I18n from '@ioc:Adonis/Addons/I18n';
 
 import { IUser } from '../../Interfaces/IUser';
-import { inject, injectable } from 'tsyringe';
+import User from '../../Models/User';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
+import { inject, injectable } from 'tsyringe';
 
 @injectable()
-export class CreateUserSessionUseCase {
+export class ShowUserProfileUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUser.Repository
   ) {}
 
-  public async execute(email: string, password: string, auth: AuthContract) {
+  public async execute(user_id: number): Promise<User | NotFoundException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
-    const user = await this.usersRepository.findBy('email', email);
+    const user = await this.usersRepository.findBy('id', user_id);
 
     if (!user) {
       throw new NotFoundException(
@@ -28,12 +27,6 @@ export class CreateUserSessionUseCase {
       );
     }
 
-    try {
-      const token = await auth.use('api').attempt(email, password);
-
-      return { ...user.toJSON(), authentication_token: token.token };
-    } catch (error) {
-      throw new AppException(error.message);
-    }
+    return user;
   }
 }

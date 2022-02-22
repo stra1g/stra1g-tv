@@ -16,22 +16,22 @@ export default class User extends BaseModel {
   @column()
   public email: string;
 
-  @column()
+  @column({ serializeAs: null })
   public password: string;
 
-  @column()
+  @column({ serializeAs: null })
   public is_deleted: boolean;
 
-  @column.dateTime()
+  @column.dateTime({ serializeAs: null })
   public deleted_at: DateTime;
 
-  @column.dateTime()
+  @column.dateTime({ serializeAs: null })
   public first_login_at: DateTime;
 
   @column()
   public avatar: string;
 
-  @column()
+  @column({ serializeAs: null })
   public language: string;
 
   @column()
