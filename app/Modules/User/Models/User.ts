@@ -20,9 +20,6 @@ export default class User extends BaseModel {
   public password: string;
 
   @column()
-  public rememberMeToken?: string;
-
-  @column()
   public is_deleted: boolean;
 
   @column.dateTime()

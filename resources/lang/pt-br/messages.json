@@ -1,5 +1,6 @@
 {
   "errors": {
-    "already_exists": "{property} já existe"
+    "already_exists": "{property} já existe",
+    "not_found": "{model} não encontrado"
   }
 }
