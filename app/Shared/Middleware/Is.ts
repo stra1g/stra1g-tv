@@ -12,9 +12,9 @@ export default class Is {
     if (!userRoles)
       throw new UnauthorizedException(i18n.formatMessage('messages.errors.not_allowed'));
 
-    const hasPermission = userRoles.some((role) => guards?.includes(role.name));
+    const hasRole = userRoles.some((role) => guards?.includes(role.name));
 
-    if (!hasPermission)
+    if (!hasRole)
       throw new UnauthorizedException(i18n.formatMessage('messages.errors.not_allowed'));
 
     await next();
