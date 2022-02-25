@@ -3,6 +3,7 @@ import Permission from '../Models/Permission';
 export namespace IPermission {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<Permission>;
+    findByMethodAndResource(method: string, resource: string): Promise<Permission | null>;
   }
 
   export interface Helpers {
@@ -11,7 +12,8 @@ export namespace IPermission {
 
   export namespace DTO {
     export interface Store {
-      name: string;
+      method: string;
+      resource: string;
       description: string;
     }
   }

@@ -13,4 +13,20 @@ export class PermissionsRepository implements IPermission.Repository {
 
     return permission;
   }
+
+  public async findByMethodAndResource(
+    method: string,
+    resource: string
+  ): Promise<Permission | null> {
+    const permission = await Permission.query()
+      .where({
+        method,
+        resource,
+      })
+      .first();
+
+    if (!permission) return null;
+
+    return permission;
+  }
 }

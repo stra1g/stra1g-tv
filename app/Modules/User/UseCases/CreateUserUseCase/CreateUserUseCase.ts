@@ -26,7 +26,7 @@ export class CreateUserUseCase {
 
     if (usernameAlreadyExists) {
       throw new AppException(
-        i18n.formatMessage('messages.errors.already_exists', { property: 'username' })
+        i18n.formatMessage('messages.errors.property_already_exists', { property: 'username' })
       );
     }
 
@@ -34,7 +34,7 @@ export class CreateUserUseCase {
 
     if (emailAlreadyExists) {
       throw new AppException(
-        i18n.formatMessage('messages.errors.already_exists', { property: 'email' })
+        i18n.formatMessage('messages.errors.property_already_exists', { property: 'email' })
       );
     }
 

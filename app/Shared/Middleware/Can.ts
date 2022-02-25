@@ -7,8 +7,11 @@ export default class Can {
     next: () => Promise<void>,
     guards?: string[]
   ) {
-    const userRoles = (await auth.user?.related('roles').query()) || [];
-    const userPermissions = (await auth.user?.related('permissions').query()) || [];
+    if (!auth.user)
+      throw new UnauthorizedException(i18n.formatMessage('messages.errors.not_allowed'));
+
+    const userRoles = await auth.user.related('roles').query();
+    const userPermissions = await auth.user.related('permissions').query();
 
     for (const role of userRoles) {
       const rolePermissions = await role.related('permissions').query();
@@ -16,9 +19,10 @@ export default class Can {
     }
 
     const hasPermission = userPermissions.some((permission) => {
-      if (guards?.includes(permission.name)) return true;
+      const { method, resource } = permission;
 
-      const [method, resource] = permission.name.split('_');
+      if (guards?.includes(`${method}_${resource}`)) return true;
+
       const guardsMethods = guards?.map((guard) => guard.split('_')[0]);
 
       if (guardsMethods?.includes(method) && resource === '*') {

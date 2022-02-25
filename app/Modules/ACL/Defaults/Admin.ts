@@ -5,23 +5,28 @@ export default {
   },
   permissions: [
     {
-      name: 'store_*',
+      method: 'store',
+      resource: '*',
       description: 'Store anything',
     },
     {
-      name: 'update_*',
+      method: 'update',
+      resource: '*',
       description: 'Update anything',
     },
     {
-      name: 'destroy_*',
+      method: 'destroy',
+      resource: '*',
       description: 'Destroy anything',
     },
     {
-      name: 'show_*',
+      method: 'show',
+      resource: '*',
       description: 'Show anything',
     },
     {
-      name: 'index_*',
+      method: 'index',
+      resource: '*',
       description: 'Index anything',
     },
   ],

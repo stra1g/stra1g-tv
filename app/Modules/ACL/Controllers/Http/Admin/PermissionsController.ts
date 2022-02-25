@@ -5,11 +5,11 @@ import { CreatePermissionUseCase } from 'App/Modules/ACL/UseCases/CreatePermissi
 
 export default class PermissionsController {
   public async store({ response, request }: HttpContextContract): Promise<void> {
-    const { name, description } = request.body();
+    const { method, resource, description } = request.body();
 
     const createPermissionUseCase = container.resolve(CreatePermissionUseCase);
 
-    const permission = await createPermissionUseCase.execute({ name, description });
+    const permission = await createPermissionUseCase.execute({ method, resource, description });
 
     return response.json(permission);
   }

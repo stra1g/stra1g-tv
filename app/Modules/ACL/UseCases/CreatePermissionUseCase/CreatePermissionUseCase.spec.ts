@@ -14,7 +14,8 @@ test.group('Create permission', (group) => {
 
   test('it should be able to create a new permission', async (assert) => {
     const permissionData = {
-      name: 'permission_test',
+      method: 'store',
+      resource: 'test',
       description: 'Permission test',
     };
 
@@ -25,7 +26,8 @@ test.group('Create permission', (group) => {
 
   test('it should not be able to create a new permission with same name', async (assert) => {
     const permissionData = {
-      name: 'permission_test',
+      method: 'store',
+      resource: 'test',
       description: 'Permission test',
     };
 

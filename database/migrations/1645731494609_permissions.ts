@@ -7,8 +7,9 @@ export default class Permissions extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.string('name').notNullable();
-      table.string('description');
+      table.string('method').notNullable();
+      table.string('resource').notNullable();
+      table.string('description').notNullable();
       table.boolean('is_deleted').defaultTo(false);
       table.timestamp('deleted_at', { useTz: true });
 

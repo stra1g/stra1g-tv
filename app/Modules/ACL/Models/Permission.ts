@@ -7,7 +7,10 @@ export default class Permission extends BaseModel {
   public id: number;
 
   @column()
-  public name: string;
+  public method: string;
+
+  @column()
+  public resource: string;
 
   @column()
   public description: string;

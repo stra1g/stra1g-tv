@@ -14,21 +14,27 @@ export class CreatePermissionUseCase {
   ) {}
 
   public async execute({
-    name,
+    method,
+    resource,
     description,
   }: IPermission.DTO.Store): Promise<Permission | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
-    const nameAlreadyExists = await this.permissionsRepository.findBy('name', name);
+    const permissionAlreadyExists = await this.permissionsRepository.findByMethodAndResource(
+      method,
+      resource
+    );
 
-    if (nameAlreadyExists) {
+    if (permissionAlreadyExists) {
       throw new AppException(
-        i18n.formatMessage('messages.errors.already_exists', { property: 'name' })
+        i18n.formatMessage('messages.errors.model_already_exists', {
+          model: i18n.formatMessage('models.permission'),
+        })
       );
     }
 
-    const permission = await this.permissionsRepository.store({ name, description });
+    const permission = await this.permissionsRepository.store({ method, resource, description });
 
     return permission;
   }

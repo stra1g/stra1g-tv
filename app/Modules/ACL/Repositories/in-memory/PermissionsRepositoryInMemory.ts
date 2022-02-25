@@ -4,12 +4,17 @@ import Permission from '../../Models/Permission';
 export class PermissionsRepositoryInMemory implements IPermission.Repository {
   public permissions: Permission[] = [];
 
-  public async store({ description, name }: IPermission.DTO.Store): Promise<Permission> {
+  public async store({
+    description,
+    method,
+    resource,
+  }: IPermission.DTO.Store): Promise<Permission> {
     const permission = new Permission();
 
     Object.assign(permission, {
       description,
-      name,
+      method,
+      resource,
       id: this.permissions.length + 1,
     });
 
@@ -20,6 +25,19 @@ export class PermissionsRepositoryInMemory implements IPermission.Repository {
 
   public async findBy(key: string, value: any): Promise<Permission | null> {
     const permission = this.permissions.find((permission) => permission[key] === value);
+
+    if (!permission) return null;
+
+    return permission;
+  }
+
+  public async findByMethodAndResource(
+    method: string,
+    resource: string
+  ): Promise<Permission | null> {
+    const permission = this.permissions.find(
+      (permission) => permission.method === method && permission.resource === resource
+    );
 
     if (!permission) return null;
 
