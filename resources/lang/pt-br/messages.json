@@ -1,6 +1,7 @@
 {
   "errors": {
     "already_exists": "{property} já existe",
-    "not_found": "{model} não encontrado"
+    "not_found": "{model} não encontrado",
+    "not_allowed": "Você não tem permissão para acessar esse recurso"
   }
 }

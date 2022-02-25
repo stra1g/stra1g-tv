@@ -44,4 +44,5 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Shared/Middleware/Auth'),
+  is: () => import('App/Shared/Middleware/Is'),
 });
