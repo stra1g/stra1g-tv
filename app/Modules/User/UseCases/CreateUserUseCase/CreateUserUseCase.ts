@@ -1,10 +1,11 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 
 import AppException from 'App/Shared/Exceptions/AppException';
 import { IUser } from '../../Interfaces/IUser';
 import User from '../../Models/User';
+import { GetRoleByNameUseCase } from 'App/Modules/ACL/UseCases/Role/Shared/GetRoleByNameUseCase/GetRoleByNameUseCase';
 
 @injectable()
 export class CreateUserUseCase {
@@ -39,6 +40,13 @@ export class CreateUserUseCase {
     }
 
     const user = await this.usersRepository.store({ name, email, username, password });
+
+    const getRoleByNameUseCase = container.resolve(GetRoleByNameUseCase);
+    const commonUserRole = await getRoleByNameUseCase.execute('common_user');
+
+    if (commonUserRole) {
+      await user.related('roles').attach([commonUserRole.id]);
+    }
 
     return user;
   }

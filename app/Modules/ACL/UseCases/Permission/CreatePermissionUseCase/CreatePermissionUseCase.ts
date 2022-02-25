@@ -3,8 +3,8 @@ import HttpContext from '@ioc:Adonis/Core/HttpContext';
 
 import AppException from 'App/Shared/Exceptions/AppException';
 import { inject, injectable } from 'tsyringe';
-import { IPermission } from '../../Interfaces/IPermission';
-import Permission from '../../Models/Permission';
+import { IPermission } from '../../../Interfaces/IPermission';
+import Permission from '../../../Models/Permission';
 
 @injectable()
 export class CreatePermissionUseCase {

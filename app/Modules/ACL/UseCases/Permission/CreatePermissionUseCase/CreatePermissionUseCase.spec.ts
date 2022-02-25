@@ -1,6 +1,6 @@
 import AppException from 'App/Shared/Exceptions/AppException';
 import test from 'japa';
-import { PermissionsRepositoryInMemory } from '../../Repositories/in-memory/PermissionsRepositoryInMemory';
+import { PermissionsRepositoryInMemory } from '../../../Repositories/in-memory/PermissionsRepositoryInMemory';
 import { CreatePermissionUseCase } from './CreatePermissionUseCase';
 
 let permissionsRepositoryInMemory: PermissionsRepositoryInMemory;
