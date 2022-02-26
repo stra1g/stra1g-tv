@@ -1,4 +1,6 @@
+import { ManyToMany } from '@ioc:Adonis/Lucid/Orm';
 import { IRole } from '../../Interfaces/IRole';
+import Permission from '../../Models/Permission';
 import Role from '../../Models/Role';
 
 export class RolesRepositoryInMemory implements IRole.Repository {
@@ -24,5 +26,9 @@ export class RolesRepositoryInMemory implements IRole.Repository {
     if (!role) return null;
 
     return role;
+  }
+
+  public async attachPermissions(role: Role, permissions: Permission[]): Promise<void> {
+    role.permissions = permissions as ManyToMany<typeof Permission>;
   }
 }

@@ -29,4 +29,10 @@ export class PermissionsRepository implements IPermission.Repository {
 
     return permission;
   }
+
+  public async findMany(permission_ids: number[]): Promise<Permission[]> {
+    const permissions = await Permission.findMany(permission_ids);
+
+    return permissions;
+  }
 }

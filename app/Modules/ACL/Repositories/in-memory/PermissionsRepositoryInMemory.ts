@@ -43,4 +43,12 @@ export class PermissionsRepositoryInMemory implements IPermission.Repository {
 
     return permission;
   }
+
+  public async findMany(permission_ids: number[]): Promise<Permission[]> {
+    const permissions = this.permissions.filter((permission) =>
+      permission_ids.includes(permission.id)
+    );
+
+    return permissions;
+  }
 }
