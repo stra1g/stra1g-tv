@@ -1,3 +1,4 @@
+import Role from 'App/Modules/ACL/Models/Role';
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
 import User from '../Models/User';
 
@@ -18,5 +19,11 @@ export class UsersRepository implements IUser.Repository {
     const user = await User.create(data);
 
     return user;
+  }
+
+  public async attachRoles(user: User, roles: Role[]): Promise<void> {
+    const roleIds = roles.map((role) => role.id);
+
+    await user.related('roles').attach(roleIds);
   }
 }

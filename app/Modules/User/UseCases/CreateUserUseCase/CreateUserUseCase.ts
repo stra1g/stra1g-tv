@@ -1,17 +1,19 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
-import { container, inject, injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import AppException from 'App/Shared/Exceptions/AppException';
 import { IUser } from '../../Interfaces/IUser';
 import User from '../../Models/User';
-import { GetRoleByNameUseCase } from 'App/Modules/ACL/UseCases/Role/Shared/GetRoleByNameUseCase/GetRoleByNameUseCase';
+import { IRole } from 'App/Modules/ACL/Interfaces/IRole';
 
 @injectable()
 export class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUser.Repository
+    private usersRepository: IUser.Repository,
+    @inject('RolesRepository')
+    private rolesRepository: IRole.Repository
   ) {}
 
   public async execute({
@@ -41,11 +43,10 @@ export class CreateUserUseCase {
 
     const user = await this.usersRepository.store({ name, email, username, password });
 
-    const getRoleByNameUseCase = container.resolve(GetRoleByNameUseCase);
-    const commonUserRole = await getRoleByNameUseCase.execute('common_user');
+    const commonUserRole = await this.rolesRepository.findBy('name', 'common_user');
 
     if (commonUserRole) {
-      await user.related('roles').attach([commonUserRole.id]);
+      await this.usersRepository.attachRoles(user, [commonUserRole]);
     }
 
     return user;

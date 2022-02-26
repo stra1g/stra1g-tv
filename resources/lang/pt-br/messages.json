@@ -2,7 +2,7 @@
   "errors": {
     "property_already_exists": "A propriedade {property} já existe",
     "model_already_exists": "{model} já existe",
-    "not_found": "{model} não encontrado",
+    "not_found": "{model} não encontrado(a)",
     "not_allowed": "Você não tem permissão para acessar esse recurso"
   }
 }

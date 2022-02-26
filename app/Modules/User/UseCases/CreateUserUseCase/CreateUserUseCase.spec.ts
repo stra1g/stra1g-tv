@@ -1,15 +1,18 @@
+import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
 import AppException from 'App/Shared/Exceptions/AppException';
 import test from 'japa';
 import { UsersRepositoryInMemory } from '../../Repositories/In-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
+let rolesRepositoryInMemory: RolesRepositoryInMemory;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 
 test.group('Create User', (group) => {
   group.beforeEach(() => {
+    rolesRepositoryInMemory = new RolesRepositoryInMemory();
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory, rolesRepositoryInMemory);
   });
 
   test('it should be able to create a new user', async (assert) => {

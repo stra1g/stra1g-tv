@@ -1,8 +1,10 @@
+import Role from 'App/Modules/ACL/Models/Role';
 import User from '../Models/User';
 
 export namespace IUser {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<User>;
+    attachRoles(user: User, roles: Role[]): Promise<void>;
   }
 
   export interface Helpers {

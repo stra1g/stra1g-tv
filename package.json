@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "test": "node -r @adonisjs/assembler/build/register japaFile.ts",
+    "test": "NODE_ENV=testing node -r @adonisjs/assembler/build/register japaFile.ts",
     "build": "node ace build --production",
     "start": "node server.js",
     "lint": "eslint . --ext=.ts",
