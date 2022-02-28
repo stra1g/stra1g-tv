@@ -19,5 +19,7 @@ export class RolesRepository implements IRole.Repository {
     const permissionIds = permissions.map((permission) => permission.id);
 
     await role.related('permissions').attach(permissionIds);
+
+    await role.load('permissions');
   }
 }

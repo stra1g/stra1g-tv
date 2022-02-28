@@ -11,5 +11,7 @@ Route.group(() => {
     Route.post('permissions', 'Admin/PermissionsController.store').middleware([
       'can:store_permission',
     ]);
-  }).middleware('auth');
+  })
+    .middleware(['auth', 'is:admin'])
+    .prefix('admin');
 }).namespace('App/Modules/ACL/Controllers/Http');

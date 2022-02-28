@@ -1,3 +1,4 @@
+import Permission from 'App/Modules/ACL/Models/Permission';
 import Role from 'App/Modules/ACL/Models/Role';
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
 import User from '../Models/User';
@@ -25,5 +26,13 @@ export class UsersRepository implements IUser.Repository {
     const roleIds = roles.map((role) => role.id);
 
     await user.related('roles').attach(roleIds);
+  }
+
+  public async attachPermissions(user: User, permissions: Permission[]): Promise<void> {
+    const permissionIds = permissions.map((permission) => permission.id);
+
+    await user.related('permissions').attach(permissionIds);
+
+    await user.load('permissions');
   }
 }

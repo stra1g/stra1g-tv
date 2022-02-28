@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route';
 
 import 'App/Modules/User/Routes/UserRoutes';
+import 'App/Modules/User/Routes/AdminRoutes';
 import 'App/Modules/ACL/Routes/AdminRoutes';
 
 Route.get('/', async () => {
