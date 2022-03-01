@@ -38,6 +38,6 @@ export default class Token extends BaseModel {
   @beforeFind()
   @beforeFetch()
   public static async ignoreRevoked(query: ModelQueryBuilderContract<any>) {
-    query.whereNot({ is_revoked: true }).orWhereNot('is_revoked', DateTime.now().toISO());
+    query.whereNot({ is_revoked: true });
   }
 }

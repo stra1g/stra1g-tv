@@ -4,9 +4,11 @@
     "property_already_exists": "A propriedade {property} já existe",
     "model_already_exists": "{model} já existe",
     "not_found": "{model} não encontrado(a)",
-    "not_allowed": "Você não tem permissão para acessar esse recurso"
+    "not_allowed": "Você não tem permissão para acessar esse recurso",
+    "expired_token": "Token expirado"
   },
   "success": {
-    "mail_sended": "Email enviado"
+    "mail_sended": "Email enviado",
+    "password_changed": "Senha alterada com sucesso"
   }
 }

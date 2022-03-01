@@ -12,6 +12,8 @@ Route.group(() => {
     Route.post('refresh_token', 'User/SessionController.refreshToken');
 
     Route.post('password/forgot', 'User/ForgotPasswordController.store');
+
+    Route.post('password/reset', 'User/ForgotPasswordController.resetPassword');
   });
 
   /**

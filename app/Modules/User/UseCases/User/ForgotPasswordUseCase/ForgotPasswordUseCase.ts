@@ -26,7 +26,7 @@ export class ForgotPasswordUseCase {
     const forgotPasswordToken = await this.tokensRepository.store({
       user_id: user.id,
       type: 'forgot_password',
-      expires_at: DateTime.now().plus({ minutes: 5 }),
+      expires_at: DateTime.now().plus({ minutes: 10 }),
       name: 'Forgot password',
       token: stringToken,
     });

@@ -4,7 +4,8 @@ import Token from '../Models/Token';
 export namespace IToken {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<Token>;
-    findByRefreshToken(token: string): Promise<Token | null>;
+    findRefreshToken(token: string): Promise<Token | null>;
+    findForgotPasswordToken(token: string): Promise<Token | null>;
     revokeById(token_id: number): Promise<void>;
   }
 

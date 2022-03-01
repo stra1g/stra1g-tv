@@ -4,8 +4,10 @@
     "model_already_exists": "{model} already exists",
     "not_found": "{model} not found",
     "not_allowed": "You do not have permission to access this resource",
-    "success": {
-      "mail_sended": "Mail sended"
-    }
+    "expired_token": "Expired token"
+  },
+  "success": {
+    "mail_sended": "Mail sended",
+    "password_changed": "Password changed successfully"
   }
 }

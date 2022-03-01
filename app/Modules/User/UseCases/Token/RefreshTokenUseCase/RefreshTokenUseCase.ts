@@ -21,7 +21,7 @@ export class RefreshTokenUseCase {
   public async execute(token: string, auth: AuthContract) {
     const i18n = I18n.locale('pt-br');
 
-    const tokenExists = await this.tokensRepository.findByRefreshToken(token);
+    const tokenExists = await this.tokensRepository.findRefreshToken(token);
 
     if (!tokenExists) {
       throw new NotFoundException(
