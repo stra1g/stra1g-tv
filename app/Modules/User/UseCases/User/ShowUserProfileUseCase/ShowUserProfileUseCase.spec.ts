@@ -1,6 +1,6 @@
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
-import { UsersRepositoryInMemory } from '../../Repositories/In-memory/UsersRepositoryInMemory';
+import { UsersRepositoryInMemory } from '../../../Repositories/In-memory/UsersRepositoryInMemory';
 import { ShowUserProfileUseCase } from './ShowUserProfileUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;

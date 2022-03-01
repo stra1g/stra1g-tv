@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { ShowUserProfileUseCase } from 'App/Modules/User/UseCases/ShowUserProfileUseCase/ShowUserProfileUseCase';
+import { ShowUserProfileUseCase } from 'App/Modules/User/UseCases/User/ShowUserProfileUseCase/ShowUserProfileUseCase';
 import { container } from 'tsyringe';
-import { CreateUserUseCase } from '../../../UseCases/CreateUserUseCase/CreateUserUseCase';
+import { CreateUserUseCase } from '../../../UseCases/User/CreateUserUseCase/CreateUserUseCase';
 
 export default class UsersController {
   public async store({ response, request }: HttpContextContract): Promise<void> {

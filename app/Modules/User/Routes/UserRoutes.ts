@@ -8,6 +8,8 @@ Route.group(() => {
     Route.post('users', 'User/UsersController.store').middleware([]);
 
     Route.post('sessions', 'User/SessionController.store');
+
+    Route.post('refresh_token', 'User/SessionController.refreshToken');
   });
 
   /**

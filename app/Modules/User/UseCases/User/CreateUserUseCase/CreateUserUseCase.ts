@@ -3,8 +3,8 @@ import I18n from '@ioc:Adonis/Addons/I18n';
 import { inject, injectable } from 'tsyringe';
 
 import AppException from 'App/Shared/Exceptions/AppException';
-import { IUser } from '../../Interfaces/IUser';
-import User from '../../Models/User';
+import { IUser } from '../../../Interfaces/IUser';
+import User from '../../../Models/User';
 import { IRole } from 'App/Modules/ACL/Interfaces/IRole';
 
 @injectable()

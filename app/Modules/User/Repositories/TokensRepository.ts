@@ -7,4 +7,14 @@ export class TokensRepository implements IToken.Repository {
 
     return createdToken;
   }
+
+  public async findByRefreshToken(token: string): Promise<Token | null> {
+    const foundToken = await Token.query().where({ token, type: 'refresh_token' }).first();
+
+    return foundToken;
+  }
+
+  public async revokeById(token_id: number): Promise<void> {
+    await Token.query().where({ id: token_id }).update({ is_revoked: true });
+  }
 }

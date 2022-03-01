@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IPermission } from 'App/Modules/ACL/Interfaces/IPermission';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 
-import { IUser } from '../../Interfaces/IUser';
+import { IUser } from '../../../Interfaces/IUser';
 
 interface Request {
   user_id: number;

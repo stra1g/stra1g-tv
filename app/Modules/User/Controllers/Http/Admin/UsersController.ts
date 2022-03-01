@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { AttachPermissionsUseCase } from 'App/Modules/User/UseCases/AttachPermissionsUseCase/AttachPermissionsUseCase';
+import { AttachPermissionsUseCase } from 'App/Modules/User/UseCases/User/AttachPermissionsUseCase/AttachPermissionsUseCase';
 import { container } from 'tsyringe';
 
 export default class UsersController {

@@ -4,10 +4,10 @@ import { AuthContract } from '@ioc:Adonis/Addons/Auth';
 import I18n from '@ioc:Adonis/Addons/I18n';
 import crypto from 'crypto';
 
-import { IUser } from '../../Interfaces/IUser';
+import { IUser } from '../../../Interfaces/IUser';
 import { inject, injectable } from 'tsyringe';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
-import { IToken } from '../../Interfaces/IToken';
+import { IToken } from '../../../Interfaces/IToken';
 import { DateTime } from 'luxon';
 
 @injectable()
@@ -46,7 +46,7 @@ export class CreateUserSessionUseCase {
         token: stringToken,
       });
 
-      return { ...user.toJSON(), authentication_token: token.token, refresh_token: stringToken };
+      return { ...user.toJSON(), access_token: token.token, refresh_token: stringToken };
     } catch (error) {
       throw new AppException(error.message);
     }

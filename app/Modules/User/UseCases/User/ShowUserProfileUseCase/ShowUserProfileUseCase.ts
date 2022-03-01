@@ -1,8 +1,8 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
 
-import { IUser } from '../../Interfaces/IUser';
-import User from '../../Models/User';
+import { IUser } from '../../../Interfaces/IUser';
+import User from '../../../Models/User';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import { inject, injectable } from 'tsyringe';
 
