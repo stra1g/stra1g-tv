@@ -1,5 +1,6 @@
 {
   "errors": {
+    "general_error": "Desculpe, algo deu errado",
     "property_already_exists": "A propriedade {property} já existe",
     "model_already_exists": "{model} já existe",
     "not_found": "{model} não encontrado(a)",

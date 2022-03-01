@@ -32,4 +32,6 @@ export default Env.rules({
   PG_DB_NAME: Env.schema.string(),
   PG_DB_DEBUG: Env.schema.boolean.optional(),
   PG_SSL: Env.schema.boolean(),
+
+  REFRESH_TOKEN_ENCRYPT_KEY: Env.schema.string(),
 });

@@ -36,7 +36,6 @@
     "@adonisjs/repl": "^3.1.8",
     "@adonisjs/view": "^6.1.1",
     "bcrypt": "^5.0.1",
-    "date-fns": "^2.28.0",
     "luxon": "^2.3.0",
     "pg": "^8.7.3",
     "proxy-addr": "^2.0.7",
