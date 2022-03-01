@@ -8,6 +8,6 @@
   },
   "success": {
     "mail_sended": "Email enviado",
-    "changed_password": "Senha alterada com sucesso"
+    "password_changed": "Senha alterada com sucesso"
   }
 }
