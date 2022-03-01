@@ -33,5 +33,12 @@ export default Env.rules({
   PG_DB_DEBUG: Env.schema.boolean.optional(),
   PG_SSL: Env.schema.boolean(),
 
-  REFRESH_TOKEN_ENCRYPT_KEY: Env.schema.string(),
+  SMTP_HOST: Env.schema.string({ format: 'host' }),
+  SMTP_PORT: Env.schema.number(),
+  SMTP_USERNAME: Env.schema.string(),
+  SMTP_PASSWORD: Env.schema.string(),
+
+  SES_ACCESS_KEY: Env.schema.string(),
+  SES_ACCESS_SECRET: Env.schema.string(),
+  SES_REGION: Env.schema.string(),
 });

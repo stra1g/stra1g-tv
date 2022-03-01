@@ -35,7 +35,8 @@
       "@adonisjs/lucid",
       "@adonisjs/i18n",
       "@adonisjs/view",
-      "@adonisjs/auth"
+      "@adonisjs/auth",
+      "@adonisjs/mail"
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
