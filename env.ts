@@ -20,6 +20,7 @@ export default Env.rules({
   APP_KEY: Env.schema.string(),
   APP_NAME: Env.schema.string(),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  APP_URL: Env.schema.string(),
 
   DB_CONNECTION: Env.schema.string(),
 
@@ -33,12 +34,8 @@ export default Env.rules({
   PG_DB_DEBUG: Env.schema.boolean.optional(),
   PG_SSL: Env.schema.boolean(),
 
-  SMTP_HOST: Env.schema.string({ format: 'host' }),
-  SMTP_PORT: Env.schema.number(),
-  SMTP_USERNAME: Env.schema.string(),
-  SMTP_PASSWORD: Env.schema.string(),
-
   SES_ACCESS_KEY: Env.schema.string(),
   SES_ACCESS_SECRET: Env.schema.string(),
   SES_REGION: Env.schema.string(),
+  MAIL_FROM: Env.schema.string({ format: 'email' }),
 });

@@ -10,6 +10,8 @@ Route.group(() => {
     Route.post('sessions', 'User/SessionController.store');
 
     Route.post('refresh_token', 'User/SessionController.refreshToken');
+
+    Route.post('password/forgot', 'User/ForgotPasswordController.store');
   });
 
   /**

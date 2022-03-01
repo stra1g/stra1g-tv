@@ -5,8 +5,8 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { MailConfig } from '@ioc:Adonis/Addons/Mail'
+import Env from '@ioc:Adonis/Core/Env';
+import { MailConfig } from '@ioc:Adonis/Addons/Mail';
 
 const mailConfig: MailConfig = {
   /*
@@ -57,8 +57,7 @@ const mailConfig: MailConfig = {
       sendingRate: 10,
       maxConnections: 5,
     },
-
   },
-}
+};
 
-export default mailConfig
+export default mailConfig;

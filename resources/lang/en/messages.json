@@ -3,6 +3,9 @@
     "property_already_exists": "The property {property} already exists",
     "model_already_exists": "{model} already exists",
     "not_found": "{model} not found",
-    "not_allowed": "You do not have permission to access this resource"
+    "not_allowed": "You do not have permission to access this resource",
+    "success": {
+      "mail_sended": "Mail sended"
+    }
   }
 }
