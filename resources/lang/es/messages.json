@@ -4,10 +4,10 @@
     "model_already_exists": "{model} ya existe",
     "not_found": "{model} no encontrado(a)",
     "not_allowed": "No tienes permiso para acceder a esta función",
-    "expired_token": "Token expirado"
+    "expired_token": "Token caducado"
   },
   "success": {
     "mail_sended": "Email enviado",
-    "password_changed": "Senha alterada com sucesso"
+    "password_changed": "Contraseña alterada con éxito"
   }
 }
