@@ -1,11 +1,15 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { RefreshTokenUseCase } from 'App/Modules/User/UseCases/Token/RefreshTokenUseCase/RefreshTokenUseCase';
 import { CreateUserSessionUseCase } from 'App/Modules/User/UseCases/User/CreateUserSessionUseCase/CreateUserSessionUseCase';
+import { SessionValidator } from 'App/Modules/User/Validators/Session';
 import { container } from 'tsyringe';
 
 export default class SessionController {
-  public async store({ request, response, auth }: HttpContextContract): Promise<void> {
-    const { email, password } = request.body();
+  public async store(ctx: HttpContextContract): Promise<void> {
+    const { request, response, auth } = ctx;
+
+    const validator = await new SessionValidator.Store(ctx).createSchema();
+    const { email, password } = await request.validate(validator);
 
     const createUserSessionUseCase = container.resolve(CreateUserSessionUseCase);
 
