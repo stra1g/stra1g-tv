@@ -1,0 +1,8 @@
+{
+  "required": "The field {field} is mandatory",
+  "unique": "The field {field} should be unique",
+  "email": "The field should be a valid email",
+  "string": "The field should be a string",
+  "number": "The field should be a number",
+  "array": "The {field} should be an array"
+}

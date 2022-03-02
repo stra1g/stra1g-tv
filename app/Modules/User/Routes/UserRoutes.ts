@@ -20,6 +20,6 @@ Route.group(() => {
    * User routes
    */
   Route.group(() => {
-    Route.get('users/:id', 'User/UsersController.show');
+    Route.get('users/:id', 'User/UsersController.show').where('id', /^[0-9]+$/);
   }).middleware('auth');
 }).namespace('App/Modules/User/Controllers/Http');
