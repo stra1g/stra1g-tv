@@ -2,5 +2,7 @@
   "required": "El campo {field} es obligatorio",
   "unique": "El campo {field} debe ser único",
   "email": "El campo debe ser un correo electrónico válido",
-  "string": "El campo debe ser una string"
+  "string": "El campo debe ser una string",
+  "number": "El campo debe ser un número",
+  "array": "El campo {field} debe ser un array"
 }
