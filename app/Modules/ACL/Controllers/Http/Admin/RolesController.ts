@@ -3,25 +3,28 @@ import { container } from 'tsyringe';
 
 import { CreateRoleUseCase } from 'App/Modules/ACL/UseCases/Role/CreateRoleUseCase/CreateRoleUseCase';
 import { AttachPermissionsUseCase } from 'App/Modules/ACL/UseCases/Role/AttachPermissionsUseCase/AttachPermissionsUseCase';
+import { RoleValidator } from 'App/Modules/ACL/Validators/Role';
 
 export default class RolesController {
-  public async store({ response, request }: HttpContextContract): Promise<void> {
-    const { name, description } = request.body();
+  public async store(ctx: HttpContextContract): Promise<void> {
+    const { response, request } = ctx;
+
+    const validator = await new RoleValidator.Store(ctx).createSchema();
+    const roleData = await request.validate(validator);
 
     const createRoleUseCase = container.resolve(CreateRoleUseCase);
 
-    const role = await createRoleUseCase.execute({ name, description });
+    const role = await createRoleUseCase.execute(roleData);
 
     return response.json(role);
   }
 
-  public async attachPermissions({
-    request,
-    response,
-    params,
-  }: HttpContextContract): Promise<void> {
+  public async attachPermissions(ctx: HttpContextContract): Promise<void> {
+    const { request, response, params } = ctx;
     const { id } = params;
-    const { permission_ids: permissionIds } = request.body();
+
+    const validator = await new RoleValidator.AttachPermissions(ctx).createSchema();
+    const { permission_ids: permissionIds } = await request.validate(validator);
 
     const attachPermissionsUseCase = container.resolve(AttachPermissionsUseCase);
 
