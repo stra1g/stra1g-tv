@@ -1,8 +1,10 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Permission from '../Models/Permission';
 
 export namespace IPermission {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<Permission>;
+    index(page: number, perPage: number): Promise<ModelPaginatorContract<Permission>>;
     findByMethodAndResource(method: string, resource: string): Promise<Permission | null>;
     findMany(permission_ids: number[]): Promise<Permission[]>;
   }

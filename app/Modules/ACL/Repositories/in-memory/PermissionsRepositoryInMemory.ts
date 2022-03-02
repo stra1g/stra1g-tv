@@ -1,3 +1,4 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import { IPermission } from '../../Interfaces/IPermission';
 import Permission from '../../Models/Permission';
 
@@ -21,6 +22,37 @@ export class PermissionsRepositoryInMemory implements IPermission.Repository {
     this.permissions.push(permission);
 
     return permission;
+  }
+
+  public async index(page: number, perPage: number): Promise<ModelPaginatorContract<Permission>> {
+    const meta = {};
+    const data: Permission[] = [];
+
+    const total = this.permissions.length;
+    const lastPage = total / perPage;
+    const nextPageUrl = page - lastPage === 0 ? null : `/?page=${page + 1}`;
+    const previousPageUrl = page - 1 === 0 ? null : `/?page=${page - 1}`;
+
+    Object.assign(meta, {
+      total,
+      per_page: perPage,
+      current_page: page,
+      last_page: lastPage,
+      first_page: 1,
+      first_page_url: '/?page=1',
+      last_page_url: `/?page=${lastPage}`,
+      next_page_url: nextPageUrl,
+      previous_page_url: previousPageUrl,
+    });
+
+    for (let i = 0; i < perPage; i++) {
+      data.push(this.permissions[i]);
+    }
+
+    return {
+      meta,
+      data,
+    } as any;
   }
 
   public async findBy(key: string, value: any): Promise<Permission | null> {

@@ -11,6 +11,10 @@ Route.group(() => {
     Route.post('permissions', 'Admin/PermissionsController.store').middleware([
       'can:store_permission',
     ]);
+
+    Route.get('permissions', 'Admin/PermissionsController.index').middleware([
+      'can:index_permissions',
+    ]);
   })
     .middleware(['auth', 'is:admin'])
     .prefix('admin');

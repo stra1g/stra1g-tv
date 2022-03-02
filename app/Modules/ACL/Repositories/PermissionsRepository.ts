@@ -1,3 +1,4 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import { IPermission } from '../Interfaces/IPermission';
 import Permission from '../Models/Permission';
 
@@ -6,6 +7,12 @@ export class PermissionsRepository implements IPermission.Repository {
     const permission = await Permission.create(data);
 
     return permission;
+  }
+
+  public async index(page: number, perPage: number): Promise<ModelPaginatorContract<Permission>> {
+    const permissions = await Permission.query().paginate(page, perPage);
+
+    return permissions;
   }
 
   public async findBy(key: string, value: any): Promise<Permission | null> {
