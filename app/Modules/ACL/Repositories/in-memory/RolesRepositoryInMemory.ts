@@ -28,7 +28,13 @@ export class RolesRepositoryInMemory implements IRole.Repository {
     return role;
   }
 
-  public async attachPermissions(role: Role, permissions: Permission[]): Promise<void> {
+  public async syncPermissions(role: Role, permissions: Permission[]): Promise<void> {
     role.permissions = permissions as ManyToMany<typeof Permission>;
+  }
+
+  public async findMany(role_ids: number[]): Promise<Role[]> {
+    const roles = this.roles.filter((role) => role_ids.includes(role.id));
+
+    return roles;
   }
 }

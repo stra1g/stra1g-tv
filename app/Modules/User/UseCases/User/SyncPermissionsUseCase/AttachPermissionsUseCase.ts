@@ -8,7 +8,7 @@ import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import { IUser } from '../../../Interfaces/IUser';
 
 interface Request {
-  user_id: number;
+  userId: number;
   permissionIds: number[];
 }
 
@@ -21,13 +21,13 @@ export class AttachPermissionsUseCase {
     private permissionsRepository: IPermission.Repository
   ) {}
 
-  public async execute({ user_id, permissionIds }: Request) {
+  public async execute({ userId, permissionIds }: Request) {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
     const verifiedPermissions = await this.permissionsRepository.findMany(permissionIds);
 
-    const user = await this.usersRepository.findBy('id', user_id);
+    const user = await this.usersRepository.findBy('id', userId);
 
     if (!user) {
       throw new NotFoundException(
@@ -37,7 +37,7 @@ export class AttachPermissionsUseCase {
       );
     }
 
-    await this.usersRepository.attachPermissions(user, verifiedPermissions);
+    await this.usersRepository.syncPermissions(user, verifiedPermissions);
 
     return user.serialize();
   }

@@ -51,7 +51,7 @@ export class AttachPermissionsUseCase {
 
     const verifiedPermissions = await this.permissionsRepository.findMany(permissionIds);
 
-    await this.rolesRepository.attachPermissions(role, verifiedPermissions);
+    await this.rolesRepository.syncPermissions(role, verifiedPermissions);
 
     return role.toObject() as ResponseRoleObject;
   }

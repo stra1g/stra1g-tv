@@ -47,4 +47,23 @@ export namespace UserValidator {
       return { schema: storeSchema, messages: this.messages };
     }
   }
+
+  export class AttachRoles {
+    constructor(protected ctx: HttpContextContract) {}
+
+    private i18n = this.ctx.i18n;
+    public messages = {
+      '*': (field, rule) => {
+        return this.i18n.formatMessage(`validation.${rule}`, { field });
+      },
+    };
+
+    public async createSchema() {
+      const storeSchema = schema.create({
+        role_ids: schema.array().members(schema.number()),
+      });
+
+      return { schema: storeSchema, messages: this.messages };
+    }
+  }
 }

@@ -1,30 +1,25 @@
 import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/PermissionsRepositoryInMemory';
+import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
-import { UsersRepositoryInMemory } from '../../../Repositories/In-memory/UsersRepositoryInMemory';
 import { AttachPermissionsUseCase } from './AttachPermissionsUseCase';
 
-let usersRepositoryInMemory: UsersRepositoryInMemory;
+let rolesRepositoryInMemory: RolesRepositoryInMemory;
 let permissionsRepositoryInMemory: PermissionsRepositoryInMemory;
-let attachPermissionUseCase: AttachPermissionsUseCase;
+let attachPermissionsUseCase: AttachPermissionsUseCase;
 
-test.group('Attach permissions to user', (group) => {
+test.group('Sync permissions to role', (group) => {
   group.beforeEach(() => {
-    usersRepositoryInMemory = new UsersRepositoryInMemory();
+    rolesRepositoryInMemory = new RolesRepositoryInMemory();
     permissionsRepositoryInMemory = new PermissionsRepositoryInMemory();
-    attachPermissionUseCase = new AttachPermissionsUseCase(
-      usersRepositoryInMemory,
+    attachPermissionsUseCase = new AttachPermissionsUseCase(
+      rolesRepositoryInMemory,
       permissionsRepositoryInMemory
     );
   });
 
-  test('it should be able to attach permissions to a specific user', async (assert) => {
-    const user = await usersRepositoryInMemory.store({
-      name: 'Test',
-      email: 'test@email.com',
-      password: '123456',
-      username: 'test',
-    });
+  test('it should be able to sync permissions to a specific role', async (assert) => {
+    const role = await rolesRepositoryInMemory.store({ name: 'test_role', description: 'Test' });
 
     const storePermission = await permissionsRepositoryInMemory.store({
       method: 'store',
@@ -37,16 +32,16 @@ test.group('Attach permissions to user', (group) => {
       description: 'test',
     });
 
-    const updatedUser = await attachPermissionUseCase.execute({
-      user_id: user.id,
+    const updatedRole = await attachPermissionsUseCase.execute({
+      role_id: role.id,
       permissionIds: [storePermission.id, destroyPermission.id],
     });
 
-    assert.property(updatedUser, 'permissions');
-    assert.lengthOf(updatedUser.permissions, 2);
+    assert.property(updatedRole, 'permissions');
+    assert.lengthOf(updatedRole.permissions, 2);
   });
 
-  test('it should not be able to attach permissions to user if user does not exists', async (assert) => {
+  test('it should not be able to sync permissions to a role if role does not exists', async (assert) => {
     const storePermission = await permissionsRepositoryInMemory.store({
       method: 'store',
       resource: 'test_resource',
@@ -59,8 +54,8 @@ test.group('Attach permissions to user', (group) => {
     });
 
     try {
-      await attachPermissionUseCase.execute({
-        user_id: 9999,
+      await attachPermissionsUseCase.execute({
+        role_id: 843824,
         permissionIds: [storePermission.id, destroyPermission.id],
       });
     } catch (error) {

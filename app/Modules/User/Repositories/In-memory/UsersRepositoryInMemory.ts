@@ -25,11 +25,11 @@ export class UsersRepositoryInMemory implements IUser.Repository {
     return user;
   }
 
-  public async attachRoles(user: User, roles: Role[]): Promise<void> {
+  public async syncRoles(user: User, roles: Role[]): Promise<void> {
     user.roles = roles as ManyToMany<typeof Role>;
   }
 
-  public async attachPermissions(user: User, permissions: Permission[]): Promise<void> {
+  public async syncPermissions(user: User, permissions: Permission[]): Promise<void> {
     user.permissions = permissions as ManyToMany<typeof Permission>;
   }
 }

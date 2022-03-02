@@ -46,7 +46,7 @@ export class CreateUserUseCase {
     const commonUserRole = await this.rolesRepository.findBy('name', 'common_user');
 
     if (commonUserRole) {
-      await this.usersRepository.attachRoles(user, [commonUserRole]);
+      await this.usersRepository.syncRoles(user, [commonUserRole]);
     }
 
     return user;

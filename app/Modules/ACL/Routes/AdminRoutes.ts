@@ -2,7 +2,7 @@ import Route from '@ioc:Adonis/Core/Route';
 
 Route.group(() => {
   Route.group(() => {
-    Route.put('roles/:id/attach/permissions', 'Admin/RolesController.attachPermissions')
+    Route.put('roles/:id/sync/permissions', 'Admin/RolesController.syncPermissions')
       .middleware(['can:store_role_permissions'])
       .where('id', /^[0-9]+$/);
 

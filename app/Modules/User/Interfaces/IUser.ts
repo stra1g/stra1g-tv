@@ -5,8 +5,8 @@ import User from '../Models/User';
 export namespace IUser {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<User>;
-    attachRoles(user: User, roles: Role[]): Promise<void>;
-    attachPermissions(user: User, permissions: Permission[]): Promise<void>;
+    syncRoles(user: User, roles: Role[]): Promise<void>;
+    syncPermissions(user: User, permissions: Permission[]): Promise<void>;
   }
 
   export interface Helpers {

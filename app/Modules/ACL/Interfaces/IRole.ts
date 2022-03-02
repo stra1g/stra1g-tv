@@ -4,7 +4,8 @@ import Role from '../Models/Role';
 export namespace IRole {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<Role>;
-    attachPermissions(role: Role, permissions: Permission[]): Promise<void>;
+    syncPermissions(role: Role, permissions: Permission[]): Promise<void>;
+    findMany(role_ids: number[]): Promise<Role[]>;
   }
 
   export interface Helpers {

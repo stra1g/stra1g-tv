@@ -22,16 +22,18 @@ export class UsersRepository implements IUser.Repository {
     return user;
   }
 
-  public async attachRoles(user: User, roles: Role[]): Promise<void> {
+  public async syncRoles(user: User, roles: Role[]): Promise<void> {
     const roleIds = roles.map((role) => role.id);
 
-    await user.related('roles').attach(roleIds);
+    await user.related('roles').sync(roleIds);
+
+    await user.load('roles');
   }
 
-  public async attachPermissions(user: User, permissions: Permission[]): Promise<void> {
+  public async syncPermissions(user: User, permissions: Permission[]): Promise<void> {
     const permissionIds = permissions.map((permission) => permission.id);
 
-    await user.related('permissions').attach(permissionIds);
+    await user.related('permissions').sync(permissionIds);
 
     await user.load('permissions');
   }

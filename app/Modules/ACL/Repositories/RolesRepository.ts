@@ -15,11 +15,17 @@ export class RolesRepository implements IRole.Repository {
     return role;
   }
 
-  public async attachPermissions(role: Role, permissions: Permission[]): Promise<void> {
+  public async syncPermissions(role: Role, permissions: Permission[]): Promise<void> {
     const permissionIds = permissions.map((permission) => permission.id);
 
-    await role.related('permissions').attach(permissionIds);
+    await role.related('permissions').sync(permissionIds);
 
     await role.load('permissions');
+  }
+
+  public async findMany(role_ids: number[]): Promise<Role[]> {
+    const roles = await Role.findMany(role_ids);
+
+    return roles;
   }
 }

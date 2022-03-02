@@ -15,7 +15,7 @@ export default class CreateDefaultAclSettings extends BaseSchema {
       await Permission.createMany(defaultAdminAclSettings.permissions)
     ).map((permission) => permission.id);
 
-    await adminRole.related('permissions').attach(adminPermissionIds);
+    await adminRole.related('permissions').sync(adminPermissionIds);
 
     /**
      * Common user role
