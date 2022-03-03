@@ -38,7 +38,9 @@ export class ForgotPasswordUseCase {
       subject: 'Reset password process',
       htmlView: 'emails/forgot_password',
       params: {
-        forgot_password_url: `${Env.get('APP_URL')}?token=${forgotPasswordToken.token}`,
+        forgot_password_url: `${Env.get('APP_URL')}password/reset?token=${
+          forgotPasswordToken.token
+        }`,
       },
     });
   }
