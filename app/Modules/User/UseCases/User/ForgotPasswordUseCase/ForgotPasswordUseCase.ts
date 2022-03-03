@@ -1,11 +1,11 @@
 import crypto from 'crypto';
 import Env from '@ioc:Adonis/Core/Env';
-import Mail from '@ioc:Adonis/Addons/Mail';
 import { DateTime } from 'luxon';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 
 import { IToken } from 'App/Modules/User/Interfaces/IToken';
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
+import { SendMailUseCase } from 'App/Modules/Mail/UseCases/Shared/SendMailUseCase/SendMailUseCase';
 
 @injectable()
 export class ForgotPasswordUseCase {
@@ -31,14 +31,15 @@ export class ForgotPasswordUseCase {
       token: stringToken,
     });
 
-    await Mail.send((message) => {
-      message
-        .from(Env.get('MAIL_FROM'))
-        .to(user.email)
-        .subject('Reset password process')
-        .htmlView('emails/forgot_password', {
-          forgot_password_url: `${Env.get('APP_URL')}?token=${forgotPasswordToken.token}`,
-        });
+    const sendMailUseCase = container.resolve(SendMailUseCase);
+    await sendMailUseCase.execute({
+      from: Env.get('MAIL_FROM'),
+      to: user.email,
+      subject: 'Reset password process',
+      htmlView: 'emails/forgot_password',
+      params: {
+        forgot_password_url: `${Env.get('APP_URL')}?token=${forgotPasswordToken.token}`,
+      },
     });
   }
 }

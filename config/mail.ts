@@ -57,6 +57,13 @@ const mailConfig: MailConfig = {
       sendingRate: 10,
       maxConnections: 5,
     },
+    ethereal: {
+      driver: 'ethereal',
+      auth: {
+        user: Env.get('ETHEREAL_USER'),
+        password: Env.get('ETHEREAL_PASSWORD'),
+      },
+    },
   },
 };
 

@@ -6,9 +6,13 @@
  */
 
 declare module '@ioc:Adonis/Addons/Mail' {
-  import { MailDrivers } from '@ioc:Adonis/Addons/Mail'
-
+  import { EtherealConfig } from 'Providers/MailDriver';
+  import { MailDrivers } from '@ioc:Adonis/Addons/Mail';
   interface MailersList {
-    ses: MailDrivers['ses'],
+    ses: MailDrivers['ses'];
+    ethereal: {
+      config: EtherealConfig;
+      implementation: MailDriverContract;
+    };
   }
 }
