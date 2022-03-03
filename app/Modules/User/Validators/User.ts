@@ -15,13 +15,8 @@ export namespace UserValidator {
     public async createSchema() {
       const storeSchema = schema.create({
         name: schema.string(),
-        username: schema.string({ trim: true }, [
-          rules.unique({ table: 'users', column: 'username' }),
-        ]),
-        email: schema.string({}, [
-          rules.email(),
-          rules.unique({ table: 'users', column: 'email' }),
-        ]),
+        username: schema.string({ trim: true }),
+        email: schema.string({}, [rules.email()]),
         password: schema.string(),
       });
 
