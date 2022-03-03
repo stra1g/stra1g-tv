@@ -1,4 +1,3 @@
-import AppException from 'App/Shared/Exceptions/AppException';
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import { AuthContract } from '@ioc:Adonis/Addons/Auth';
 import I18n from '@ioc:Adonis/Addons/I18n';
@@ -48,7 +47,11 @@ export class CreateUserSessionUseCase {
 
       return { ...user.toJSON(), access_token: token.token, refresh_token: stringToken };
     } catch (error) {
-      throw new AppException(error.message);
+      throw new NotFoundException(
+        i18n.formatMessage('messages.errors.not_found', {
+          model: i18n.formatMessage('models.user'),
+        })
+      );
     }
   }
 }

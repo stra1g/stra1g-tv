@@ -59,6 +59,7 @@ export default class User extends BaseModel {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password);
     }
+    user.email = user.email.toLowerCase();
   }
 
   @beforeUpdate()
