@@ -16,7 +16,7 @@ export class SendMailUseCase {
     const enviroment = Env.get('NODE_ENV');
 
     if (enviroment === 'testing') {
-      await Mail.use('ethereal').sendLater((message) => {
+      await Mail.use('gmail').send((message) => {
         message.from(from).to(to).subject(subject).html('local mail test');
       });
 

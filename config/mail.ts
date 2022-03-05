@@ -57,11 +57,11 @@ const mailConfig: MailConfig = {
       sendingRate: 10,
       maxConnections: 5,
     },
-    ethereal: {
-      driver: 'ethereal',
+    gmail: {
+      driver: 'gmail',
       auth: {
-        user: Env.get('ETHEREAL_USER'),
-        password: Env.get('ETHEREAL_PASSWORD'),
+        user: Env.get('GMAIL_USER'),
+        password: Env.get('GMAIL_PASSWORD'),
       },
     },
   },

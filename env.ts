@@ -38,4 +38,7 @@ export default Env.rules({
   SES_ACCESS_SECRET: Env.schema.string(),
   SES_REGION: Env.schema.string(),
   MAIL_FROM: Env.schema.string({ format: 'email' }),
+
+  GMAIL_USER: Env.schema.string({ format: 'email' }),
+  GMAIL_PASSWORD: Env.schema.string(),
 });
