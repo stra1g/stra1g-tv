@@ -12,11 +12,15 @@ export default class AppProvider {
     await import('../app/Shared/Container');
     const { BcryptCustom } = await import('./HashDriver');
     const { Ethereal } = await import('./MailDriver');
+    const etherealTestAccount = await Ethereal.createTestAccount();
     const Hash = this.app.container.use('Adonis/Core/Hash');
     const Mail = this.app.container.use('Adonis/Addons/Mail');
 
     Mail.extend('ethereal', (_mail, _mapping, config) => {
-      return new Ethereal(config);
+      return new Ethereal({
+        ...config,
+        auth: { user: etherealTestAccount.user, password: etherealTestAccount.pass },
+      });
     });
 
     Hash.extend('bcryptCustom', () => {

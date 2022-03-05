@@ -1,5 +1,5 @@
 import { MailDriverContract, MessageNode } from '@ioc:Adonis/Addons/Mail';
-import { createTransport, getTestMessageUrl, Transporter } from 'nodemailer';
+import { createTestAccount, createTransport, getTestMessageUrl, Transporter } from 'nodemailer';
 
 export type EtherealConfig = {
   driver: 'ethereal';
@@ -22,6 +22,10 @@ export class Ethereal implements MailDriverContract {
         pass: config.auth.password,
       },
     });
+  }
+
+  public static async createTestAccount() {
+    return createTestAccount();
   }
 
   public async send(message: MessageNode): Promise<any> {
