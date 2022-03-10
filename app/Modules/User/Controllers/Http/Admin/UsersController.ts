@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { AttachPermissionsUseCase } from 'App/Modules/User/UseCases/User/SyncPermissionsUseCase/AttachPermissionsUseCase';
-import { AttachRolesUseCase } from 'App/Modules/User/UseCases/User/SyncRolesUseCase/AttachRolesUseCase';
+import { SyncPermissionsUseCase } from 'App/Modules/User/UseCases/User/SyncPermissionsUseCase/SyncPermissionsUseCase';
+import { SyncRolesUseCase } from 'App/Modules/User/UseCases/User/SyncRolesUseCase/SyncRolesUseCase';
 import { UserValidator } from 'App/Modules/User/Validators/User';
 import { container } from 'tsyringe';
 
@@ -9,12 +9,12 @@ export default class UsersController {
     const { request, params, response } = ctx;
     const { id } = params;
 
-    const validator = await new UserValidator.AttachPermissions(ctx).createSchema();
+    const validator = await new UserValidator.SyncPermissions(ctx).createSchema();
     const { permission_ids: permissionIds } = await request.validate(validator);
 
-    const attachPermissionsUseCase = container.resolve(AttachPermissionsUseCase);
+    const syncPermissionsUseCase = container.resolve(SyncPermissionsUseCase);
 
-    const user = await attachPermissionsUseCase.execute({
+    const user = await syncPermissionsUseCase.execute({
       userId: id,
       permissionIds,
     });
@@ -26,12 +26,12 @@ export default class UsersController {
     const { request, params, response } = ctx;
     const { id } = params;
 
-    const validator = await new UserValidator.AttachRoles(ctx).createSchema();
+    const validator = await new UserValidator.SyncRoles(ctx).createSchema();
     const { role_ids: roleIds } = await request.validate(validator);
 
-    const attachRolesUseCase = container.resolve(AttachRolesUseCase);
+    const syncRolesUseCase = container.resolve(SyncRolesUseCase);
 
-    const user = await attachRolesUseCase.execute({
+    const user = await syncRolesUseCase.execute({
       userId: id,
       roleIds,
     });

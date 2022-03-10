@@ -32,7 +32,6 @@ test.group('Admin: User', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
 
-    console.log(response.body);
     assert.property(response.body, 'permissions');
     assert.isArray(response.body.permissions);
     assert.lengthOf(response.body.permissions, 2);

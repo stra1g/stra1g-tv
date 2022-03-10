@@ -2,7 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { container } from 'tsyringe';
 
 import { CreateRoleUseCase } from 'App/Modules/ACL/UseCases/Role/CreateRoleUseCase/CreateRoleUseCase';
-import { AttachPermissionsUseCase } from 'App/Modules/ACL/UseCases/Role/SyncPermissionsUseCase/AttachPermissionsUseCase';
+import { SyncPermissionsUseCase } from 'App/Modules/ACL/UseCases/Role/SyncPermissionsUseCase/SyncPermissionsUseCase';
 import { RoleValidator } from 'App/Modules/ACL/Validators/Role';
 
 export default class RolesController {
@@ -23,12 +23,12 @@ export default class RolesController {
     const { request, response, params } = ctx;
     const { id } = params;
 
-    const validator = await new RoleValidator.AttachPermissions(ctx).createSchema();
+    const validator = await new RoleValidator.SyncPermissions(ctx).createSchema();
     const { permission_ids: permissionIds } = await request.validate(validator);
 
-    const attachPermissionsUseCase = container.resolve(AttachPermissionsUseCase);
+    const syncPermissionsUseCase = container.resolve(SyncPermissionsUseCase);
 
-    const role = await attachPermissionsUseCase.execute({ role_id: id, permissionIds });
+    const role = await syncPermissionsUseCase.execute({ role_id: id, permissionIds });
 
     return response.json(role);
   }

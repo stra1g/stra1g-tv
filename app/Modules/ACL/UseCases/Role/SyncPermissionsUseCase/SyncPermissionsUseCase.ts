@@ -27,7 +27,7 @@ interface ResponseRoleObject extends ModelObject {
 }
 
 @injectable()
-export class AttachPermissionsUseCase {
+export class SyncPermissionsUseCase {
   constructor(
     @inject('RolesRepository')
     private rolesRepository: IRole.Repository,

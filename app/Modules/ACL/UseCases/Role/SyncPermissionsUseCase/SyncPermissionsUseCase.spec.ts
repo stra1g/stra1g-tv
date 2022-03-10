@@ -2,17 +2,17 @@ import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-m
 import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
-import { AttachPermissionsUseCase } from './AttachPermissionsUseCase';
+import { SyncPermissionsUseCase } from './SyncPermissionsUseCase';
 
 let rolesRepositoryInMemory: RolesRepositoryInMemory;
 let permissionsRepositoryInMemory: PermissionsRepositoryInMemory;
-let attachPermissionsUseCase: AttachPermissionsUseCase;
+let syncPermissionsUseCase: SyncPermissionsUseCase;
 
 test.group('Sync permissions to role', (group) => {
   group.beforeEach(() => {
     rolesRepositoryInMemory = new RolesRepositoryInMemory();
     permissionsRepositoryInMemory = new PermissionsRepositoryInMemory();
-    attachPermissionsUseCase = new AttachPermissionsUseCase(
+    syncPermissionsUseCase = new SyncPermissionsUseCase(
       rolesRepositoryInMemory,
       permissionsRepositoryInMemory
     );
@@ -32,7 +32,7 @@ test.group('Sync permissions to role', (group) => {
       description: 'test',
     });
 
-    const updatedRole = await attachPermissionsUseCase.execute({
+    const updatedRole = await syncPermissionsUseCase.execute({
       role_id: role.id,
       permissionIds: [storePermission.id, destroyPermission.id],
     });
@@ -54,7 +54,7 @@ test.group('Sync permissions to role', (group) => {
     });
 
     try {
-      await attachPermissionsUseCase.execute({
+      await syncPermissionsUseCase.execute({
         role_id: 843824,
         permissionIds: [storePermission.id, destroyPermission.id],
       });

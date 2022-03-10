@@ -24,7 +24,7 @@ export namespace UserValidator {
     }
   }
 
-  export class AttachPermissions {
+  export class SyncPermissions {
     constructor(protected ctx: HttpContextContract) {}
 
     private i18n = this.ctx.i18n;
@@ -43,7 +43,7 @@ export namespace UserValidator {
     }
   }
 
-  export class AttachRoles {
+  export class SyncRoles {
     constructor(protected ctx: HttpContextContract) {}
 
     private i18n = this.ctx.i18n;

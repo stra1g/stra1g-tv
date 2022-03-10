@@ -22,7 +22,7 @@ export namespace RoleValidator {
     }
   }
 
-  export class AttachPermissions {
+  export class SyncPermissions {
     constructor(protected ctx: HttpContextContract) {}
 
     private i18n = this.ctx.i18n;

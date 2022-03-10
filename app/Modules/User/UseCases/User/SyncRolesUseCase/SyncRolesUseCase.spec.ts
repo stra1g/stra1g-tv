@@ -2,17 +2,17 @@ import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/
 import { UsersRepositoryInMemory } from 'App/Modules/User/Repositories/In-memory/UsersRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
-import { AttachRolesUseCase } from './AttachRolesUseCase';
+import { SyncRolesUseCase } from './SyncRolesUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let rolesRepositoryInMemory: RolesRepositoryInMemory;
-let attachRolesUseCase: AttachRolesUseCase;
+let syncRolesUseCase: SyncRolesUseCase;
 
 test.group('Sync roles to user', (group) => {
   group.beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     rolesRepositoryInMemory = new RolesRepositoryInMemory();
-    attachRolesUseCase = new AttachRolesUseCase(usersRepositoryInMemory, rolesRepositoryInMemory);
+    syncRolesUseCase = new SyncRolesUseCase(usersRepositoryInMemory, rolesRepositoryInMemory);
   });
 
   test('it should be able to sync roles to a specific user', async (assert) => {
@@ -33,7 +33,7 @@ test.group('Sync roles to user', (group) => {
       description: 'moderator',
     });
 
-    const updatedUser = await attachRolesUseCase.execute({
+    const updatedUser = await syncRolesUseCase.execute({
       userId: user.id,
       roleIds: [editorRole.id, moderatorRole.id],
     });
@@ -54,7 +54,7 @@ test.group('Sync roles to user', (group) => {
     });
 
     try {
-      await attachRolesUseCase.execute({
+      await syncRolesUseCase.execute({
         userId: 6940,
         roleIds: [editorRole.id, moderatorRole.id],
       });

@@ -13,7 +13,7 @@ interface Request {
 }
 
 @injectable()
-export class AttachPermissionsUseCase {
+export class SyncPermissionsUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUser.Repository,
