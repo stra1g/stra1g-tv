@@ -5,7 +5,7 @@ import { UserFactory } from 'Database/factories';
 
 const BASE_URL = Env.get('APP_URL');
 
-test.group('Functional: User', () => {
+test.group('User: User', () => {
   test('it should be able to create a new user as common_user', async (assert) => {
     const response = await supertest(BASE_URL).post('/users').send({
       name: 'Test name',

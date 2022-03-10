@@ -5,7 +5,7 @@ import { UserFactory } from 'Database/factories';
 
 const BASE_URL = Env.get('APP_URL');
 
-test.group('Functional: Session', () => {
+test.group('User: Session', () => {
   test('it should be able to login a user', async (assert) => {
     const password = '123456';
     const user = await UserFactory.merge({ password }).create();

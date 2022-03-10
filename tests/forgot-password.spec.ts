@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
 const BASE_URL = Env.get('APP_URL');
 
-test.group('Functional: Forgot Password', () => {
+test.group('User: Forgot Password', () => {
   test('it should be able to send a forgot password mail', async (assert) => {
     const user = await UserFactory.create();
 
