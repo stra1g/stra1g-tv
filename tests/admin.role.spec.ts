@@ -113,4 +113,29 @@ test.group('Admin: Role', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(404);
   });
+
+  test('it should be able to list roles', async (assert) => {
+    const {
+      body: { access_token: accessToken },
+    } = await supertest(BASE_URL)
+      .post('/sessions')
+      .send({
+        email: 'admin@stra1g.com',
+        password: 'admin',
+      })
+      .expect(200);
+
+    await RoleFactory.createMany(5);
+
+    const response = await supertest(BASE_URL)
+      .get('/admin/roles')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(200);
+
+    assert.property(response.body, 'meta');
+    assert.property(response.body, 'data');
+    assert.property(response.body.data[0], 'id');
+    assert.property(response.body.data[0], 'name');
+    assert.property(response.body.data[0], 'description');
+  });
 });

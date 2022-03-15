@@ -64,7 +64,7 @@ test.group('Admin: Permissions', () => {
       .expect(400);
   });
 
-  test('it should be able to list all permissions', async (assert) => {
+  test('it should be able to list permissions', async (assert) => {
     const {
       body: { access_token: accessToken },
     } = await supertest(BASE_URL)
