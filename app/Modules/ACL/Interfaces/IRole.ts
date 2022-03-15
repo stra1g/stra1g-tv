@@ -1,3 +1,4 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Permission from '../Models/Permission';
 import Role from '../Models/Role';
 
@@ -6,6 +7,7 @@ export namespace IRole {
     store(data: DTO.Store): Promise<Role>;
     syncPermissions(role: Role, permissions: Permission[]): Promise<void>;
     findMany(role_ids: number[]): Promise<Role[]>;
+    index(page: number, perPage: number): Promise<ModelPaginatorContract<Role>>;
   }
 
   export interface Helpers {

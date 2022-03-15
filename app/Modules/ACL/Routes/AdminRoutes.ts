@@ -8,6 +8,8 @@ Route.group(() => {
 
     Route.post('roles', 'Admin/RolesController.store').middleware(['can:store_role']);
 
+    Route.get('roles', 'Admin/RolesController.index').middleware(['can:index_roles']);
+
     Route.post('permissions', 'Admin/PermissionsController.store').middleware([
       'can:store_permission',
     ]);

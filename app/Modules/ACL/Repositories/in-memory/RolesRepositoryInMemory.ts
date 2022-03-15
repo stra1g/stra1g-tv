@@ -1,4 +1,4 @@
-import { ManyToMany } from '@ioc:Adonis/Lucid/Orm';
+import { ManyToMany, ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import { IRole } from '../../Interfaces/IRole';
 import Permission from '../../Models/Permission';
 import Role from '../../Models/Role';
@@ -18,6 +18,37 @@ export class RolesRepositoryInMemory implements IRole.Repository {
     this.roles.push(role);
 
     return role;
+  }
+
+  public async index(page: number, perPage: number): Promise<ModelPaginatorContract<Role>> {
+    const meta = {};
+    const data: Role[] = [];
+
+    const total = this.roles.length;
+    const lastPage = total / perPage;
+    const nextPageUrl = page - lastPage === 0 ? null : `/?page=${page + 1}`;
+    const previousPageUrl = page - 1 === 0 ? null : `/?page=${page - 1}`;
+
+    Object.assign(meta, {
+      total,
+      per_page: perPage,
+      current_page: page,
+      last_page: lastPage,
+      first_page: 1,
+      first_page_url: '/?page=1',
+      last_page_url: `/?page=${lastPage}`,
+      next_page_url: nextPageUrl,
+      previous_page_url: previousPageUrl,
+    });
+
+    for (let i = 0; i < perPage; i++) {
+      data.push(this.roles[i]);
+    }
+
+    return {
+      meta,
+      data,
+    } as any;
   }
 
   public async findBy(key: string, value: string): Promise<Role | null> {

@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import { CreateRoleUseCase } from 'App/Modules/ACL/UseCases/Role/CreateRoleUseCase/CreateRoleUseCase';
 import { SyncPermissionsUseCase } from 'App/Modules/ACL/UseCases/Role/SyncPermissionsUseCase/SyncPermissionsUseCase';
 import { RoleValidator } from 'App/Modules/ACL/Validators/Role';
+import { IndexRolesUseCase } from 'App/Modules/ACL/UseCases/Role/IndexRolesUseCase/IndexRolesUseCase';
 
 export default class RolesController {
   public async store(ctx: HttpContextContract): Promise<void> {
@@ -17,6 +18,16 @@ export default class RolesController {
     const role = await createRoleUseCase.execute(roleData);
 
     return response.json(role);
+  }
+
+  public async index(ctx: HttpContextContract) {
+    const page = ctx.request.input('page', 1);
+    const perPage = ctx.request.input('per_page', 20);
+
+    const indexRolesUseCase = container.resolve(IndexRolesUseCase);
+    const roles = await indexRolesUseCase.execute(page, perPage);
+
+    return ctx.response.json(roles);
   }
 
   public async syncPermissions(ctx: HttpContextContract): Promise<void> {

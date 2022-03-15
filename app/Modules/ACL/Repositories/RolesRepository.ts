@@ -1,3 +1,4 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import { IRole } from '../Interfaces/IRole';
 import Permission from '../Models/Permission';
 import Role from '../Models/Role';
@@ -7,6 +8,12 @@ export class RolesRepository implements IRole.Repository {
     const role = await Role.create({ name, description });
 
     return role;
+  }
+
+  public async index(page: number, perPage: number): Promise<ModelPaginatorContract<Role>> {
+    const roles = await Role.query().paginate(page, perPage);
+
+    return roles;
   }
 
   public async findBy(key: string, value: string): Promise<Role | null> {
