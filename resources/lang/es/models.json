@@ -1,5 +1,6 @@
 {
   "user": "Usuario",
   "permission": "Permiso",
-  "role": "Oficina"
+  "role": "Oficina",
+  "channel": "Canal"
 }
