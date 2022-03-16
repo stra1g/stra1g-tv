@@ -1,7 +1,7 @@
-import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/PermissionsRepositoryInMemory';
+import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/PermissionsRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
-import { UsersRepositoryInMemory } from '../../../Repositories/In-memory/UsersRepositoryInMemory';
+import { UsersRepositoryInMemory } from '../../../Repositories/InMemory/UsersRepositoryInMemory';
 import { SyncPermissionsUseCase } from './SyncPermissionsUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;

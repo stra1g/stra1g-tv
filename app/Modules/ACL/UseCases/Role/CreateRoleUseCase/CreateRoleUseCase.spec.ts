@@ -1,4 +1,4 @@
-import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
+import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/RolesRepositoryInMemory';
 import AppException from 'App/Shared/Exceptions/AppException';
 import test from 'japa';
 import { CreateRoleUseCase } from './CreateRoleUseCase';

@@ -1,5 +1,5 @@
-import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/PermissionsRepositoryInMemory';
-import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
+import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/PermissionsRepositoryInMemory';
+import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/RolesRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import test from 'japa';
 import { SyncPermissionsUseCase } from './SyncPermissionsUseCase';

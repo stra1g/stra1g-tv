@@ -1,4 +1,4 @@
-import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/RolesRepositoryInMemory';
+import { RolesRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/RolesRepositoryInMemory';
 import test from 'japa';
 import { IndexRolesUseCase } from './IndexRolesUseCase';
 

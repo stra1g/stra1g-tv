@@ -1,4 +1,4 @@
-import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/in-memory/PermissionsRepositoryInMemory';
+import { PermissionsRepositoryInMemory } from 'App/Modules/ACL/Repositories/InMemory/PermissionsRepositoryInMemory';
 import test from 'japa';
 import { IndexPermissionsUseCase } from './IndexPermissionsUseCase';
 
