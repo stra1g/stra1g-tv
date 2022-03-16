@@ -1,0 +1,6 @@
+{
+  "all": true,
+  "include": ["app/Modules/**/UseCases/**/*.ts", "app/Modules/**/Controllers/**"],
+  "reporter": "html",
+  "report-dir": "coverage"
+}

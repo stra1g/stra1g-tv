@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "test": "NODE_ENV=testing node -r @adonisjs/assembler/build/register japaFile.ts",
+    "test": "NODE_ENV=testing nyc node -r @adonisjs/assembler/build/register japaFile.ts",
     "build": "node ace build --production",
     "start": "node server.js",
     "lint": "eslint . --ext=.ts",
@@ -25,6 +25,7 @@
     "get-port": "5.1.1",
     "japa": "^4.0.0",
     "jsdom": "^19.0.0",
+    "nyc": "^15.1.0",
     "pino-pretty": "^7.5.1",
     "prettier": "^2.5.1",
     "supertest": "^6.2.2",
