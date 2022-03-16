@@ -21,4 +21,12 @@ export class ChannelsRepositoryInMemory implements IChannel.Repository {
 
     return channel;
   }
+
+  public async show(channelId: number): Promise<Channel | null> {
+    const channel = this.channels.find((channel) => channel.id === channelId);
+
+    if (!channel) return null;
+
+    return channel;
+  }
 }

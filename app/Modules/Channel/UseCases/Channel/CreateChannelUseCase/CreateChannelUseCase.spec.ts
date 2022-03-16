@@ -26,7 +26,6 @@ test.group('Create Channel', (group) => {
     assert.property(channel, 'id');
     assert.property(channel, 'title');
     assert.property(channel, 'description');
-    assert.property(channel, 'user_id');
   });
 
   test('it should not be able to create a channel if user already has a channel', async (assert) => {

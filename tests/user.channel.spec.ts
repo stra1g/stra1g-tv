@@ -3,7 +3,7 @@ import test from 'japa';
 import supertest from 'supertest';
 
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
-import { UserFactory } from 'Database/factories';
+import { ChannelFactory, UserFactory } from 'Database/factories';
 
 const BASE_URL = Env.get('APP_URL');
 
@@ -36,7 +36,6 @@ test.group('User: Channel', () => {
     assert.property(response.body, 'id');
     assert.property(response.body, 'title');
     assert.property(response.body, 'description');
-    assert.property(response.body, 'user_id');
   });
 
   test('it should not be able to create a new channel if user already has a channel', async () => {
@@ -69,5 +68,22 @@ test.group('User: Channel', () => {
       .send(data)
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(400);
+  });
+
+  test('it should be able to show a channel', async (assert) => {
+    const user = await UserFactory.merge({ password: '123456' }).create();
+
+    const channel = await ChannelFactory.merge({ userId: user.id }).create();
+
+    const response = await supertest(BASE_URL).get(`/channels/${channel.id}`).expect(200);
+
+    assert.property(response.body, 'id');
+    assert.property(response.body, 'title');
+    assert.property(response.body, 'description');
+    assert.property(response.body, 'user');
+  });
+
+  test('it should not be able to show a channel if does not exists', async () => {
+    await supertest(BASE_URL).get(`/channels/2398`).expect(404);
   });
 });
