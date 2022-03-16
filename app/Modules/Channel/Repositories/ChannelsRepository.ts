@@ -8,6 +8,12 @@ export class ChannelsRepository implements IChannel.Repository {
     return channel;
   }
 
+  public async show(channelId: number): Promise<Channel | null> {
+    const channel = await Channel.query().where({ id: channelId }).preload('user').first();
+
+    return channel;
+  }
+
   public async findBy(key: string, value: any): Promise<Channel | null> {
     const channel = await Channel.findBy(key, value);
 

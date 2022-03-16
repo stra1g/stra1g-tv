@@ -4,7 +4,9 @@ Route.group(() => {
   /**
    * Public Routes
    */
-  Route.group(() => {});
+  Route.group(() => {
+    Route.get('channels/:id', 'User/ChannelsController.show');
+  });
 
   /**
    * User routes
