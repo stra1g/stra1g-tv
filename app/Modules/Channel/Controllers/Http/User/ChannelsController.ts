@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { CreateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/CreateChannelUseCase/CreateChannelUseCase';
 import { ShowChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/ShowChannelUseCase/ShowChannelUseCase';
+import { UpdateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/UpdateChannelUseCase/UpdateChannelUseCase';
 import { ChannelValidator } from 'App/Modules/Channel/Validators/Channel';
 import { container } from 'tsyringe';
 
@@ -16,6 +17,27 @@ export default class ChannelsController {
 
     if (user) {
       const channel = await createChannelUseCase.execute({ ...channelData, user_id: user.id });
+
+      return response.json(channel);
+    }
+  }
+
+  public async update(ctx: HttpContextContract) {
+    const { request, response, auth, params } = ctx;
+    const { id } = params;
+    const { user } = auth;
+
+    const validator = await new ChannelValidator.Update(ctx).createSchema();
+    const channelData = await request.validate(validator);
+
+    const updateChannelUseCase = container.resolve(UpdateChannelUseCase);
+
+    if (user) {
+      const channel = await updateChannelUseCase.execute({
+        channelId: id,
+        payload: channelData,
+        userId: user.id,
+      });
 
       return response.json(channel);
     }

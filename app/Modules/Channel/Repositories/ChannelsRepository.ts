@@ -14,6 +14,18 @@ export class ChannelsRepository implements IChannel.Repository {
     return channel;
   }
 
+  public async update(channel: Channel, payload: IChannel.DTO.Update): Promise<void> {
+    channel.merge(payload);
+
+    await channel.save();
+  }
+
+  public async findByUserAndChannel(userId: number, channelId: number): Promise<Channel | null> {
+    const channel = await Channel.query().where({ user_id: userId, id: channelId }).first();
+
+    return channel;
+  }
+
   public async findBy(key: string, value: any): Promise<Channel | null> {
     const channel = await Channel.findBy(key, value);
 
