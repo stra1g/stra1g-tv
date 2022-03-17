@@ -4,7 +4,7 @@ export namespace IChannel {
   export interface Repository extends Helpers {
     store(data: DTO.Store): Promise<Channel>;
     show(channelId: number): Promise<Channel | null>;
-    update(channel: Channel, payload: DTO.Update): Promise<void>;
+    update(channel: Channel, payload: DTO.Update): Promise<Channel>;
     findByUserAndChannel(userId: number, channelId: number): Promise<Channel | null>;
   }
 

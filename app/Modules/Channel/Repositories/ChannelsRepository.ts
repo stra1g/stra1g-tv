@@ -14,10 +14,12 @@ export class ChannelsRepository implements IChannel.Repository {
     return channel;
   }
 
-  public async update(channel: Channel, payload: IChannel.DTO.Update): Promise<void> {
+  public async update(channel: Channel, payload: IChannel.DTO.Update): Promise<Channel> {
     channel.merge(payload);
 
     await channel.save();
+
+    return channel;
   }
 
   public async findByUserAndChannel(userId: number, channelId: number): Promise<Channel | null> {
