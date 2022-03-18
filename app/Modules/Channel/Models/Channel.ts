@@ -50,7 +50,6 @@ export default class Channel extends BaseModel {
    * Scopes
    */
   public static search = scope((query, search) => {
-    console.log('vacshot');
     const fields = ['title'];
     let sql = '';
 
