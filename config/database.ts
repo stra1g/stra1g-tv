@@ -46,7 +46,7 @@ const databaseConfig: DatabaseConfig = {
         naturalSort: true,
       },
       healthCheck: false,
-      debug: false,
+      debug: Env.get('PG_DB_DEBUG', false),
     },
   },
 };

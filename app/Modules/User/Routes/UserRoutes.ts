@@ -21,5 +21,7 @@ Route.group(() => {
    */
   Route.group(() => {
     Route.get('users/:id', 'User/UsersController.show').where('id', /^[0-9]+$/);
+
+    Route.get('/users', 'User/UsersController.index');
   }).middleware('auth');
 }).namespace('App/Modules/User/Controllers/Http');

@@ -1,7 +1,17 @@
 import Hash from '@ioc:Adonis/Core/Hash';
-import { beforeSave, column, beforeUpdate, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm';
+import {
+  beforeSave,
+  column,
+  beforeUpdate,
+  manyToMany,
+  ManyToMany,
+  scope,
+  hasOne,
+  HasOne,
+} from '@ioc:Adonis/Lucid/Orm';
 import Permission from 'App/Modules/ACL/Models/Permission';
 import Role from 'App/Modules/ACL/Models/Role';
+import Channel from 'App/Modules/Channel/Models/Channel';
 import { BaseModel } from 'App/Shared/Model/BaseModel';
 import { DateTime } from 'luxon';
 
@@ -52,6 +62,12 @@ export default class User extends BaseModel {
   public updated_at: DateTime;
 
   /**
+   * Relationships
+   */
+  @hasOne(() => Channel)
+  public channel: HasOne<typeof Channel>;
+
+  /**
    * Hooks
    */
   @beforeSave()
@@ -68,4 +84,18 @@ export default class User extends BaseModel {
       user.deleted_at = DateTime.now();
     }
   }
+
+  /**
+   * Scopes
+   */
+  public static search = scope(async (query, search: string) => {
+    const fields = ['username'];
+    let sql = '';
+
+    fields.forEach(async (field, index) => {
+      sql += ` ${index !== 0 ? ' or ' : ' '} ${field} ilike '%${search}%'`;
+    });
+
+    return query.whereRaw(`(${sql})`);
+  });
 }

@@ -1,3 +1,4 @@
+import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Permission from 'App/Modules/ACL/Models/Permission';
 import Role from 'App/Modules/ACL/Models/Role';
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
@@ -20,6 +21,27 @@ export class UsersRepository implements IUser.Repository {
     const user = await User.create(data);
 
     return user;
+  }
+
+  public async index(
+    page: number,
+    perPage: number,
+    search: string
+  ): Promise<ModelPaginatorContract<User>> {
+    const users = await User.query()
+      .preload('channel')
+      .where((query) => {
+        query.withScopes((scopes) => scopes.search(search));
+      })
+      .orWhere((query) => {
+        query.with('channel', (channelQuery) => {
+          channelQuery.withScopes((scopes) => scopes.search(search));
+        });
+      })
+
+      .paginate(page, perPage);
+
+    return users;
   }
 
   public async syncRoles(user: User, roles: Role[]): Promise<void> {
