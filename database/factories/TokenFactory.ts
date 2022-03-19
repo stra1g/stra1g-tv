@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 export const TokenFactory = Factory.define(Token, ({ faker }) => {
   return {
-    name: faker.name.name(),
+    name: faker.name.title(),
     type: faker.random.word(),
     token: faker.random.alpha({ count: 30 }),
     expires_at: DateTime.now().plus({ minutes: 10 }),

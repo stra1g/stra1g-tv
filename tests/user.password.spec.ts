@@ -1,11 +1,10 @@
 import crypto from 'crypto';
-import Env from '@ioc:Adonis/Core/Env';
 import supertest from 'supertest';
 import test from 'japa';
 import { TokenFactory, UserFactory } from 'Database/factories';
 import { DateTime } from 'luxon';
 
-const BASE_URL = Env.get('APP_URL');
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('User: Forgot Password', () => {
   test('it should be able to send a forgot password mail', async (assert) => {

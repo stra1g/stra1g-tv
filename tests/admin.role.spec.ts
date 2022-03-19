@@ -1,9 +1,8 @@
-import Env from '@ioc:Adonis/Core/Env';
 import { PermissionFactory, RoleFactory } from 'Database/factories';
 import test from 'japa';
 import supertest from 'supertest';
 
-const BASE_URL = Env.get('APP_URL');
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('Admin: Role', () => {
   test('it should be able to create a new role', async (assert) => {

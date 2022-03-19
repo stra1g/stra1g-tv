@@ -1,11 +1,10 @@
-import Env from '@ioc:Adonis/Core/Env';
 import test from 'japa';
 import supertest from 'supertest';
 
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import { ChannelFactory, UserFactory } from 'Database/factories';
 
-const BASE_URL = Env.get('APP_URL');
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('User: Channel', () => {
   test('it should be able to create a new channel', async (assert) => {

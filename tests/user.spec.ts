@@ -1,9 +1,8 @@
-import Env from '@ioc:Adonis/Core/Env';
 import supertest from 'supertest';
 import test from 'japa';
 import { UserFactory } from 'Database/factories';
 
-const BASE_URL = Env.get('APP_URL');
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('User: User', () => {
   test('it should be able to create a new user as common_user', async (assert) => {

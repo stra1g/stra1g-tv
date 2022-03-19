@@ -1,10 +1,9 @@
-import Env from '@ioc:Adonis/Core/Env';
 import test from 'japa';
 import supertest from 'supertest';
 
 import { PermissionFactory, RoleFactory, UserFactory } from 'Database/factories';
 
-const BASE_URL = Env.get('APP_URL');
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('Admin: User', () => {
   test('it should be able to sync permissions to a user', async (assert) => {
