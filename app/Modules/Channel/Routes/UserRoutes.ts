@@ -16,5 +16,6 @@ Route.group(() => {
     Route.put('channels/:id', 'User/ChannelsController.update');
 
     Route.post('streamings', 'User/StreamingsController.store');
+    Route.patch('streamings/:id/finish', 'User/StreamingsController.finishStreaming');
   }).middleware('auth');
 }).namespace('App/Modules/Channel/Controllers/Http');

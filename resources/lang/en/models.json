@@ -2,5 +2,6 @@
   "user": "User",
   "permission": "Permission",
   "role": "Role",
-  "channel": "Channel"
+  "channel": "Channel",
+  "streaming": "Streaming"
 }

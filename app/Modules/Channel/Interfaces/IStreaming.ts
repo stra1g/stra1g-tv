@@ -4,7 +4,9 @@ import Streaming from '../Models/Streaming';
 export namespace IStreaming {
   export interface Repository extends Helpers {
     store(payload: DTO.Store): Promise<Streaming>;
-    findOnlineStreaming(channelId: number): Promise<Streaming | null>;
+    findOnlineStreamingByChannel(channelId: number): Promise<Streaming | null>;
+    finishStreaming(streaming: Streaming): Promise<Streaming>;
+    findByStreamingAndUser(streamingId: number, userId: number): Promise<Streaming | null>;
   }
 
   export interface Helpers {

@@ -16,9 +16,6 @@ export default class Channel extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @belongsTo(() => User)
-  public user: BelongsTo<typeof User>;
-
   @column({ serializeAs: null })
   public userId: number;
 
@@ -36,6 +33,12 @@ export default class Channel extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime;
+
+  /**
+   * Relationships
+   */
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>;
 
   /**
    * Hooks

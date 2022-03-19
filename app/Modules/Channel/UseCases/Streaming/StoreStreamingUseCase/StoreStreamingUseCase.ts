@@ -18,11 +18,11 @@ export class StoreStreamingUseCase {
     description,
     title,
     video_url,
-  }: IStreaming.DTO.Store): Promise<Streaming> {
+  }: IStreaming.DTO.Store): Promise<Streaming | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
-    const alreadyHasOnlineStreaming = await this.streamingsRepository.findOnlineStreaming(
+    const alreadyHasOnlineStreaming = await this.streamingsRepository.findOnlineStreamingByChannel(
       channel_id
     );
 

@@ -9,6 +9,7 @@
   },
   "success": {
     "mail_sended": "Mail sended",
-    "password_changed": "Password changed successfully"
+    "password_changed": "Password changed successfully",
+    "streaming_finished_successfully": "Streaming finished successfully"
   }
 }
