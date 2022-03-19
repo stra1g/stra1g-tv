@@ -14,7 +14,7 @@ export namespace ChannelValidator {
 
     public async createSchema() {
       const storeSchema = schema.create({
-        title: schema.string(),
+        name: schema.string(),
         description: schema.string(),
       });
 
@@ -34,7 +34,7 @@ export namespace ChannelValidator {
 
     public async createSchema() {
       const storeSchema = schema.create({
-        title: schema.string.optional(),
+        name: schema.string.optional(),
         description: schema.string.optional(),
       });
 

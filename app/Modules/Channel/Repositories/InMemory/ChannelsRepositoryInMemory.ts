@@ -4,10 +4,10 @@ import Channel from '../../Models/Channel';
 export class ChannelsRepositoryInMemory implements IChannel.Repository {
   public channels: Channel[] = [];
 
-  public async store({ description, title, user_id }: IChannel.DTO.Store): Promise<Channel> {
+  public async store({ description, name, user_id }: IChannel.DTO.Store): Promise<Channel> {
     const channel = new Channel();
 
-    Object.assign(channel, { description, title, userId: user_id, id: this.channels.length + 1 });
+    Object.assign(channel, { description, name, userId: user_id, id: this.channels.length + 1 });
 
     this.channels.push(channel);
 

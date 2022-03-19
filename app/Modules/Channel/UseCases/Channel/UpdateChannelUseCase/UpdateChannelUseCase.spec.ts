@@ -19,13 +19,13 @@ test.group('Update channel', (group) => {
 
     const channel = await channelsRepositoryInMemory.store({
       description: 'test description',
-      title: 'test title',
+      name: 'test name',
       user_id: userId,
     });
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     const updatedChannel = await updateChannelUseCase.execute({
@@ -37,7 +37,7 @@ test.group('Update channel', (group) => {
     if (updatedChannel instanceof Channel) {
       assert.property(updatedChannel, 'id');
       assert.equal(updatedChannel.description, data.description);
-      assert.equal(updatedChannel.title, data.title);
+      assert.equal(updatedChannel.name, data.name);
     }
   });
 
@@ -46,7 +46,7 @@ test.group('Update channel', (group) => {
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     try {
@@ -65,13 +65,13 @@ test.group('Update channel', (group) => {
 
     const channel = await channelsRepositoryInMemory.store({
       description: 'test description',
-      title: 'test title',
+      name: 'test name',
       user_id: userId,
     });
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     try {

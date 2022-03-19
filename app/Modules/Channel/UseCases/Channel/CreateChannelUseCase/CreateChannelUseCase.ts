@@ -15,7 +15,7 @@ export class CreateChannelUseCase {
 
   public async execute({
     description,
-    title,
+    name,
     user_id,
   }: IChannel.DTO.Store): Promise<Channel | AppException> {
     const ctx = HttpContext.get()!;
@@ -31,7 +31,7 @@ export class CreateChannelUseCase {
       );
     }
 
-    const channel = await this.channelsRepository.store({ description, title, user_id });
+    const channel = await this.channelsRepository.store({ description, name, user_id });
 
     return channel;
   }

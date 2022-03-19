@@ -15,14 +15,14 @@ test.group('Show Channel', (group) => {
   test('it should be able to show a channel', async (assert) => {
     const channel = await channelsRepositoryInMemory.store({
       description: 'test description',
-      title: 'test title',
+      name: 'test name',
       user_id: 204,
     });
 
     const foundChannel = await showChannelUseCase.execute(channel.id);
 
     assert.property(foundChannel, 'id');
-    assert.property(foundChannel, 'title');
+    assert.property(foundChannel, 'name');
     assert.property(foundChannel, 'description');
   });
 

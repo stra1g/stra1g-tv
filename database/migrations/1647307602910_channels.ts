@@ -7,7 +7,7 @@ export default class Channels extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id');
 
-      table.string('title');
+      table.string('name');
       table.string('description').nullable();
       table.boolean('online').defaultTo(false);
       table.boolean('banned').defaultTo(false);

@@ -23,7 +23,7 @@ export default class Channel extends BaseModel {
   public userId: number;
 
   @column()
-  public title: string;
+  public name: string;
 
   @column()
   public description: string;
@@ -50,7 +50,7 @@ export default class Channel extends BaseModel {
    * Scopes
    */
   public static search = scope((query, search) => {
-    const fields = ['title'];
+    const fields = ['name'];
     let sql = '';
 
     fields.forEach((field, index) => {

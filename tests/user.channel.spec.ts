@@ -22,7 +22,7 @@ test.group('User: Channel', () => {
       .expect(200);
 
     const data: IChannel.DTO.Store = {
-      title: 'channel_title',
+      name: 'channel_name',
       description: 'channel_description',
       user_id: user.id,
     };
@@ -34,7 +34,7 @@ test.group('User: Channel', () => {
       .expect(200);
 
     assert.property(response.body, 'id');
-    assert.property(response.body, 'title');
+    assert.property(response.body, 'name');
     assert.property(response.body, 'description');
   });
 
@@ -52,7 +52,7 @@ test.group('User: Channel', () => {
       .expect(200);
 
     const data: IChannel.DTO.Store = {
-      title: 'channel_title',
+      name: 'channel_name',
       description: 'channel_description',
       user_id: user.id,
     };
@@ -78,7 +78,7 @@ test.group('User: Channel', () => {
     const response = await supertest(BASE_URL).get(`/channels/${channel.id}`).expect(200);
 
     assert.property(response.body, 'id');
-    assert.property(response.body, 'title');
+    assert.property(response.body, 'name');
     assert.property(response.body, 'description');
     assert.property(response.body, 'user');
   });
@@ -102,7 +102,7 @@ test.group('User: Channel', () => {
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     const channel = await ChannelFactory.merge({ userId: user.id }).create();
@@ -114,7 +114,7 @@ test.group('User: Channel', () => {
       .expect(200);
 
     assert.equal(response.body.description, data.description);
-    assert.equal(response.body.title, data.title);
+    assert.equal(response.body.name, data.name);
   });
 
   test('it should not be able to update a channel if channel does not exists', async () => {
@@ -132,7 +132,7 @@ test.group('User: Channel', () => {
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     await supertest(BASE_URL)
@@ -160,7 +160,7 @@ test.group('User: Channel', () => {
 
     const data: IChannel.DTO.Update = {
       description: 'changed test description',
-      title: 'changed test title',
+      name: 'changed test name',
     };
 
     await supertest(BASE_URL)

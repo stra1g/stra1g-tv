@@ -14,13 +14,13 @@ export namespace IChannel {
 
   export namespace DTO {
     export interface Store {
-      title: string;
+      name: string;
       description: string;
       user_id: number;
     }
 
     export interface Update {
-      title?: string;
+      name?: string;
       description?: string;
     }
   }

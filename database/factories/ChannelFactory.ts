@@ -3,7 +3,7 @@ import Channel from 'App/Modules/Channel/Models/Channel';
 
 export const ChannelFactory = Factory.define(Channel, ({ faker }) => {
   return {
-    title: faker.random.word(),
+    name: faker.random.word(),
     description: faker.random.word(),
   };
 }).build();
