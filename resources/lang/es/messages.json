@@ -4,7 +4,8 @@
     "model_already_exists": "{model} ya existe",
     "not_found": "{model} no encontrado(a)",
     "not_allowed": "No tienes permiso para acceder a esta función",
-    "expired_token": "Token caducado"
+    "expired_token": "Token caducado",
+    "another_online_streaming": "Ya hay una transmisión online en este momento."
   },
   "success": {
     "mail_sended": "Email enviado",

@@ -4,5 +4,6 @@
   "email": "O campo deve ser um e-mail válido",
   "string": "O campo deve ser uma string",
   "number": "O campo deve ser um número",
-  "array": "O campo {field} deve ser um array"
+  "array": "O campo {field} deve ser um array",
+  "exists": "O campo {field} deve ser uma estrutura que exista"
 }

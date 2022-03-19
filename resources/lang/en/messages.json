@@ -4,7 +4,8 @@
     "model_already_exists": "{model} already exists",
     "not_found": "{model} not found",
     "not_allowed": "You do not have permission to access this resource",
-    "expired_token": "Expired token"
+    "expired_token": "Expired token",
+    "another_online_streaming": "There is already an online stream at the moment"
   },
   "success": {
     "mail_sended": "Mail sended",
