@@ -6,10 +6,13 @@ import {
   BelongsTo,
   belongsTo,
   column,
+  ManyToMany,
+  manyToMany,
   ModelQueryBuilderContract,
   scope,
 } from '@ioc:Adonis/Lucid/Orm';
 import User from 'App/Modules/User/Models/User';
+import ChannelRole from './ChannelRole';
 //import { BaseModel } from 'App/Shared/Model/BaseModel';
 
 export default class Channel extends BaseModel {
@@ -39,6 +42,11 @@ export default class Channel extends BaseModel {
    */
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;
+
+  @manyToMany(() => ChannelRole, {
+    pivotTable: 'user_channel_roles',
+  })
+  public channelRoles: ManyToMany<typeof ChannelRole>;
 
   /**
    * Hooks

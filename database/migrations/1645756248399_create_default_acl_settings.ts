@@ -11,7 +11,7 @@ export default class CreateDefaultAclSettings extends BaseSchema {
      * Admin role and permissions
      */
     const adminRole = await Role.create(defaultAdminAclSettings.role);
-    const adminPermissionIds = await (
+    const adminPermissionIds = (
       await Permission.createMany(defaultAdminAclSettings.permissions)
     ).map((permission) => permission.id);
 
