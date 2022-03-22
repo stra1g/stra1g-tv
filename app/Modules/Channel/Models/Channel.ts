@@ -10,6 +10,7 @@ import {
   manyToMany,
   ModelQueryBuilderContract,
   scope,
+  afterCreate,
 } from '@ioc:Adonis/Lucid/Orm';
 import User from 'App/Modules/User/Models/User';
 import ChannelRole from './ChannelRole';
@@ -55,6 +56,19 @@ export default class Channel extends BaseModel {
   @beforeFetch()
   public static async ignoreBanned(query: ModelQueryBuilderContract<any>) {
     query.whereNot({ banned: true });
+  }
+
+  @afterCreate()
+  public static async attachOwnerRole(channel: Channel) {
+    const ownerRole = await ChannelRole.findBy('role', 'owner');
+
+    if (ownerRole) {
+      await channel.related('channelRoles').attach({
+        [ownerRole.id]: {
+          user_id: channel.userId,
+        },
+      });
+    }
   }
 
   /**

@@ -25,22 +25,6 @@ export class StreamingsRepository implements IStreaming.Repository {
     return streaming;
   }
 
-  public async findByStreamingAndUser(
-    streamingId: number,
-    userId: number
-  ): Promise<Streaming | null> {
-    const streaming = await Streaming.query()
-      .with('channel', (channelQuery) => {
-        channelQuery.with('user', (userQuery) => {
-          userQuery.where({ id: userId });
-        });
-      })
-      .where({ id: streamingId })
-      .first();
-
-    return streaming;
-  }
-
   public async findBy(key: string, value: any): Promise<Streaming | null> {
     const streaming = await Streaming.findBy(key, value);
 

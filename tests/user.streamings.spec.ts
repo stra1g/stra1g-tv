@@ -41,41 +41,6 @@ test.group('User: Streaming', () => {
     assert.property(response.body, 'video_url');
   });
 
-  test('it should not be able to create a new streaming if channel does not exists', async (assert) => {
-    const user = await UserFactory.merge({ password: '123456' }).create();
-
-    const {
-      body: { access_token: accessToken },
-    } = await supertest(BASE_URL)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: '123456',
-      })
-      .expect(200);
-
-    const data: IStreaming.DTO.Store = {
-      channel_id: 938,
-      description: 'streaming description',
-      title: 'streaming title',
-      video_url: 'https://anyurl.com',
-    };
-
-    const response = await supertest(BASE_URL)
-      .post('/streamings')
-      .send(data)
-      .set('Authorization', `Bearer ${accessToken}`)
-      .expect(422);
-
-    assert.property(response.body, 'errors');
-    assert.isArray(response.body.errors);
-    assert.lengthOf(response.body.errors, 1);
-    assert.property(response.body.errors[0], 'rule');
-    assert.equal(response.body.errors[0].rule, 'exists');
-    assert.property(response.body.errors[0], 'field');
-    assert.equal(response.body.errors[0].field, 'channel_id');
-  });
-
   test('it should not be able to create a new streaming with another one online to same channel', async () => {
     const user = await UserFactory.merge({ password: '123456' }).create();
 

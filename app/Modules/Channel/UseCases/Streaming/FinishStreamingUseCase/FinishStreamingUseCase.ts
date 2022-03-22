@@ -13,14 +13,11 @@ export class FinishStreamingUseCase {
     private streamingsRepository: IStreaming.Repository
   ) {}
 
-  public async execute(
-    streamingId: number,
-    userId: number
-  ): Promise<Streaming | NotFoundException> {
+  public async execute(streamingId: number): Promise<Streaming | NotFoundException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
-    const streaming = await this.streamingsRepository.findByStreamingAndUser(streamingId, userId);
+    const streaming = await this.streamingsRepository.findBy('id', streamingId);
 
     if (!streaming || streaming.finished_at) {
       throw new NotFoundException(

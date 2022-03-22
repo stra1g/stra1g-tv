@@ -6,7 +6,6 @@ export namespace IStreaming {
     store(payload: DTO.Store): Promise<Streaming>;
     findOnlineStreamingByChannel(channelId: number): Promise<Streaming | null>;
     finishStreaming(streaming: Streaming): Promise<Streaming>;
-    findByStreamingAndUser(streamingId: number, userId: number): Promise<Streaming | null>;
   }
 
   export interface Helpers {

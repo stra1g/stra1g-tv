@@ -5,15 +5,12 @@ import { inject, injectable } from 'tsyringe';
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import AppException from 'App/Shared/Exceptions/AppException';
 import Channel from 'App/Modules/Channel/Models/Channel';
-import { IChannelRole } from 'App/Modules/Channel/Interfaces/IChannelRole';
 
 @injectable()
 export class CreateChannelUseCase {
   constructor(
     @inject('ChannelsRepository')
-    private channelsRepository: IChannel.Repository,
-    @inject('ChannelRolesRepository')
-    private channelRolesRepository: IChannelRole.Repository
+    private channelsRepository: IChannel.Repository
   ) {}
 
   public async execute({
@@ -35,15 +32,6 @@ export class CreateChannelUseCase {
     }
 
     const channel = await this.channelsRepository.store({ description, name, user_id });
-    const ownerRole = await this.channelRolesRepository.findBy('role', 'owner');
-
-    if (ownerRole) {
-      await channel.related('channelRoles').attach({
-        [ownerRole.id]: {
-          user_id,
-        },
-      });
-    }
 
     return channel;
   }

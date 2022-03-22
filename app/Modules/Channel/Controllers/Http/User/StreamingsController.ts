@@ -17,18 +17,15 @@ export default class StreamingsController {
     return response.status(201).json(streaming);
   }
 
-  public async finishStreaming({ params, response, i18n, auth }: HttpContextContract) {
+  public async finishStreaming({ params, response, i18n }: HttpContextContract) {
     const { id } = params;
-    const { user } = auth;
 
     const finishStreamingUseCase = container.resolve(FinishStreamingUseCase);
 
-    if (user) {
-      await finishStreamingUseCase.execute(id, user.id);
+    await finishStreamingUseCase.execute(id);
 
-      return response.json({
-        message: i18n.formatMessage('messages.success.streaming_finished_successfully'),
-      });
-    }
+    return response.json({
+      message: i18n.formatMessage('messages.success.streaming_finished_successfully'),
+    });
   }
 }
