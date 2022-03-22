@@ -1,6 +1,7 @@
 import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Permission from 'App/Modules/ACL/Models/Permission';
 import Role from 'App/Modules/ACL/Models/Role';
+import ChannelRole from 'App/Modules/Channel/Models/ChannelRole';
 import User from '../Models/User';
 
 export namespace IUser {
@@ -9,6 +10,13 @@ export namespace IUser {
     syncRoles(user: User, roles: Role[]): Promise<void>;
     syncPermissions(user: User, permissions: Permission[]): Promise<void>;
     index(page: number, perPage: number, search: string): Promise<ModelPaginatorContract<User>>;
+    getUserRoles(user: User): Promise<Role[]>;
+    findUserRoleByName(user: User, roleName: string): Promise<Role | null>;
+    findChannelRoleByChannelAndRole(
+      user: User,
+      channelId: number,
+      channelRoles: string[]
+    ): Promise<ChannelRole | null>;
   }
 
   export interface Helpers {

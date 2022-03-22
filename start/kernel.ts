@@ -46,4 +46,5 @@ Server.middleware.registerNamed({
   auth: () => import('App/Shared/Middleware/Auth'),
   is: () => import('App/Shared/Middleware/Is'),
   can: () => import('App/Shared/Middleware/Can'),
+  channelRole: () => import('App/Shared/Middleware/ChannelRole'),
 });

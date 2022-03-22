@@ -8,6 +8,14 @@ export default class ChannelRoleSeeder extends BaseSeeder {
         role: 'owner',
         description: 'The owner of channel',
       },
+      {
+        role: 'moderator',
+        description: 'The owner of channel',
+      },
+      {
+        role: 'vip',
+        description: 'The owner of channel',
+      },
     ]);
   }
 }

@@ -1,6 +1,7 @@
 import { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Permission from 'App/Modules/ACL/Models/Permission';
 import Role from 'App/Modules/ACL/Models/Role';
+import ChannelRole from 'App/Modules/Channel/Models/ChannelRole';
 import { IUser } from 'App/Modules/User/Interfaces/IUser';
 import User from '../Models/User';
 
@@ -58,5 +59,32 @@ export class UsersRepository implements IUser.Repository {
     await user.related('permissions').sync(permissionIds);
 
     await user.load('permissions');
+  }
+
+  public async getUserRoles(user: User): Promise<Role[]> {
+    const foundRoles = await user.related('roles').query();
+
+    return foundRoles;
+  }
+
+  public async findUserRoleByName(user: User, roleName: string): Promise<Role | null> {
+    const role = await user.related('roles').query().where({ name: roleName }).first();
+
+    return role;
+  }
+
+  public async findChannelRoleByChannelAndRole(
+    user: User,
+    channelId: number,
+    channelRoles: string[]
+  ): Promise<ChannelRole | null> {
+    const channelRole = await user
+      .related('channelRoles')
+      .query()
+      .where({ channel_id: channelId })
+      .whereIn('role', channelRoles)
+      .first();
+
+    return channelRole;
   }
 }
