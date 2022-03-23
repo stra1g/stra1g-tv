@@ -15,6 +15,7 @@ export namespace IChannelRole {
       channelId: number,
       userId: number
     ): Promise<void>;
+    getAvailableRoles(): Array<string>;
   }
 
   export interface Helpers {

@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { IChannelRole } from 'App/Modules/Channel/Interfaces/IChannelRole';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
+import AppException from 'App/Shared/Exceptions/AppException';
 
 interface StoreUserChannelRoleRequest {
   channelRoleId: number;
@@ -22,7 +23,7 @@ export class StoreUserChannelRoleUseCase {
     channelId,
     channelRoleId,
     userId,
-  }: StoreUserChannelRoleRequest): Promise<void | NotFoundException> {
+  }: StoreUserChannelRoleRequest): Promise<void | NotFoundException | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
@@ -35,6 +36,12 @@ export class StoreUserChannelRoleUseCase {
         })
       );
     }
+
+    if (channelRole.role === 'owner') {
+      throw new AppException(i18n.formatMessage('messages.errors.duplicated_channel_owner'));
+    }
+
+    // verify if user has another role in this channel and throw an error
 
     await this.channelRolesRepository.storeUserChannelRole(channelRole, channelId, userId);
   }

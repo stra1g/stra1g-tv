@@ -6,7 +6,8 @@
     "not_found": "{model} não encontrado(a)",
     "not_allowed": "Você não tem permissão para acessar esse recurso",
     "expired_token": "Token expirado",
-    "another_online_streaming": "Já existe uma transmissão online no momento"
+    "another_online_streaming": "Já existe uma transmissão online no momento",
+    "duplicated_channel_owner": "Não é possível atribuir o cargo de proprietário para outro usuário"
   },
   "success": {
     "mail_sended": "Email enviado",

@@ -5,7 +5,8 @@
     "not_found": "{model} not found",
     "not_allowed": "You do not have permission to access this resource",
     "expired_token": "Expired token",
-    "another_online_streaming": "There is already an online stream at the moment"
+    "another_online_streaming": "There is already an online stream at the moment",
+    "duplicated_channel_owner": "Owner role is not assignable to another user"
   },
   "success": {
     "mail_sended": "Mail sended",

@@ -20,6 +20,8 @@ export default class ChannelRole extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
   public updated_at: DateTime;
 
+  public static availableRoles = ['owner', 'moderator', 'vip'];
+
   /**
    * Relationships
    */

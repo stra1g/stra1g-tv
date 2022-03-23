@@ -43,4 +43,8 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
       },
     });
   }
+
+  public getValidRoles(): string[] {
+    return ChannelRole.availableRoles;
+  }
 }

@@ -5,7 +5,8 @@
     "not_found": "{model} no encontrado(a)",
     "not_allowed": "No tienes permiso para acceder a esta función",
     "expired_token": "Token caducado",
-    "another_online_streaming": "Ya hay una transmisión online en este momento."
+    "another_online_streaming": "Ya hay una transmisión online en este momento",
+    "duplicated_channel_owner": "No se puede asignar el rol de propietario a otro usuario"
   },
   "success": {
     "mail_sended": "Email enviado",
