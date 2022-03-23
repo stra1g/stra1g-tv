@@ -33,16 +33,4 @@ export class ChannelsRepository implements IChannel.Repository {
 
     return channel;
   }
-
-  public async listUsersChannelRole(channel: Channel, page: number, perPage: number): Promise<any> {
-    const userChannelRole = await channel
-      .related('channelRoles')
-      .pivotQuery()
-      .select('name', 'username', 'role', 'user_channel_roles.created_at')
-      .join('users', 'users.id', 'user_id')
-      .join('channel_roles', 'channel_roles.id', 'channel_role_id')
-      .paginate(page, perPage);
-
-    return userChannelRole;
-  }
 }

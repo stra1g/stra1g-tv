@@ -10,6 +10,7 @@
   "success": {
     "mail_sended": "Mail sended",
     "password_changed": "Password changed successfully",
-    "streaming_finished_successfully": "Streaming finished successfully"
+    "streaming_finished_successfully": "Streaming finished successfully",
+    "successfully_assigned_role": "Successfully assigned role"
   }
 }

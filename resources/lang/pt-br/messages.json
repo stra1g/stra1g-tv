@@ -11,6 +11,7 @@
   "success": {
     "mail_sended": "Email enviado",
     "password_changed": "Senha alterada com sucesso",
-    "streaming_finished_successfully": "Transmissão finalizada com sucesso"
+    "streaming_finished_successfully": "Transmissão finalizada com sucesso",
+    "successfully_assigned_role": "Cargo atribuído com sucesso"
   }
 }

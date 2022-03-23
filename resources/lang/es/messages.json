@@ -10,6 +10,7 @@
   "success": {
     "mail_sended": "Email enviado",
     "password_changed": "Contraseña alterada con éxito",
-    "streaming_finished_successfully": "Transmisión completada con éxito"
+    "streaming_finished_successfully": "Transmisión completada con éxito",
+    "successfully_assigned_role": "Posición asignada con éxito"
   }
 }

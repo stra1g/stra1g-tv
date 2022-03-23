@@ -4,19 +4,22 @@ import { inject, injectable } from 'tsyringe';
 
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
+import { IChannelRole } from 'App/Modules/Channel/Interfaces/IChannelRole';
 
 @injectable()
 export class ListUserChannelRoleUseCase {
   constructor(
     @inject('ChannelsRepository')
-    private channelsRepository: IChannel.Repository
+    private channelsRepository: IChannel.Repository,
+    @inject('ChannelRolesRepository')
+    private channelRolesRepository: IChannelRole.Repository
   ) {}
 
   public async execute(channelId: number, page: number, perPage: number) {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
-    const channel = await this.channelsRepository.show(channelId);
+    const channel = await this.channelsRepository.findBy('id', channelId);
 
     if (!channel) {
       throw new NotFoundException(
@@ -26,8 +29,8 @@ export class ListUserChannelRoleUseCase {
       );
     }
 
-    const userChannelRoles = await this.channelsRepository.listUsersChannelRole(
-      channel,
+    const userChannelRoles = await this.channelRolesRepository.listUsersChannelRole(
+      channel.id,
       page,
       perPage
     );
