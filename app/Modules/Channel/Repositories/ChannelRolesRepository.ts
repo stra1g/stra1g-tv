@@ -1,4 +1,6 @@
 import Database, { SimplePaginatorContract } from '@ioc:Adonis/Lucid/Database';
+import User from 'App/Modules/User/Models/User';
+
 import { IChannelRole } from '../Interfaces/IChannelRole';
 import ChannelRole from '../Models/ChannelRole';
 
@@ -20,7 +22,7 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
     page: number,
     perPage: number
   ): Promise<SimplePaginatorContract<IChannelRole.UserChannelRoleResponse>> {
-    const userChannelRole: SimplePaginatorContract<IChannelRole.UserChannelRoleResponse> =
+    const userChannelRoles: SimplePaginatorContract<IChannelRole.UserChannelRoleResponse> =
       await Database.from('channel_roles')
         .select('name', 'username', 'role', 'user_channel_roles.created_at')
         .join('user_channel_roles', 'user_channel_roles.channel_role_id', 'channel_roles.id')
@@ -29,7 +31,7 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
         .whereNot('channel_roles.role', 'owner')
         .paginate(page, perPage);
 
-    return userChannelRole;
+    return userChannelRoles;
   }
 
   public async storeUserChannelRole(
@@ -44,7 +46,22 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
     });
   }
 
-  public getValidRoles(): string[] {
+  public getAvailableRoles(): string[] {
     return ChannelRole.availableRoles;
+  }
+
+  public async findUserChannelRole(
+    user: User,
+    channelId: number
+  ): Promise<IChannelRole.UserChannelRole | null> {
+    const userChannelRole: IChannelRole.UserChannelRole | null = await user
+      .related('channelRoles')
+      .pivotQuery()
+      .where({
+        channel_id: channelId,
+      })
+      .first();
+
+    return userChannelRole;
   }
 }

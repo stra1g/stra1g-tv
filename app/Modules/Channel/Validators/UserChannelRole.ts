@@ -18,7 +18,7 @@ export namespace UserChannelRoleValidator {
       const storeSchema = schema.create({
         channel_id: schema.number([rules.exists({ table: 'channels', column: 'id' })]),
         channel_role_id: schema.number(),
-        user_id: schema.number([rules.exists({ table: 'users', column: 'id' })]),
+        user_id: schema.number(),
       });
 
       return { schema: storeSchema, messages: this.messages };

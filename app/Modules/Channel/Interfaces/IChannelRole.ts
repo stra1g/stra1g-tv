@@ -1,4 +1,6 @@
 import { SimplePaginatorContract } from '@ioc:Adonis/Lucid/Database';
+import User from 'App/Modules/User/Models/User';
+
 import { DateTime } from 'luxon';
 import ChannelRole from '../Models/ChannelRole';
 
@@ -16,6 +18,7 @@ export namespace IChannelRole {
       userId: number
     ): Promise<void>;
     getAvailableRoles(): Array<string>;
+    findUserChannelRole(user: User, channelId: number): Promise<UserChannelRole | null>;
   }
 
   export interface Helpers {
@@ -27,6 +30,15 @@ export namespace IChannelRole {
     username: string;
     role: string;
     created_at: DateTime;
+  }
+
+  export interface UserChannelRole {
+    id: number;
+    user_id: number;
+    channel_id: number;
+    channel_role_id: number;
+    created_at: DateTime;
+    updated_at: DateTime;
   }
 
   export namespace DTO {

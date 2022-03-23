@@ -6,7 +6,8 @@
     "not_allowed": "You do not have permission to access this resource",
     "expired_token": "Expired token",
     "another_online_streaming": "There is already an online stream at the moment",
-    "duplicated_channel_owner": "Owner role is not assignable to another user"
+    "duplicated_channel_owner": "Owner role is not assignable to another user",
+    "user_already_has_role_in_channel": "User already has another role in this same channel"
   },
   "success": {
     "mail_sended": "Mail sended",

@@ -6,7 +6,8 @@
     "not_allowed": "No tienes permiso para acceder a esta función",
     "expired_token": "Token caducado",
     "another_online_streaming": "Ya hay una transmisión online en este momento",
-    "duplicated_channel_owner": "No se puede asignar el rol de propietario a otro usuario"
+    "duplicated_channel_owner": "No se puede asignar el rol de propietario a otro usuario",
+    "user_already_has_role_in_channel": "El usuario ya tiene un rol en el canal"
   },
   "success": {
     "mail_sended": "Email enviado",
