@@ -3,5 +3,6 @@
   "permission": "Permissão",
   "role": "Cargo",
   "channel": "Canal",
-  "streaming": "Transmissão"
+  "streaming": "Transmissão",
+  "channelRole": "Cargo de canal"
 }

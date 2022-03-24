@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import { ListUserChannelRoleUseCase } from 'App/Modules/Channel/UseCases/ChannelRole/ListUserChannelRoleUseCase/ListUserChannelRoleUseCase';
 import { UserChannelRoleValidator } from 'App/Modules/Channel/Validators/UserChannelRole';
 import { StoreUserChannelRoleUseCase } from 'App/Modules/Channel/UseCases/ChannelRole/StoreUserChannelRoleUseCase/StoreUserChannelRoleUseCase';
+import { DestroyUserChannelRoleUseCase } from 'App/Modules/Channel/UseCases/ChannelRole/DestroyUserChannelRoleUseCase/DestroyUserChannelRoleUseCase';
 
 export default class ChannelRolesController {
   public async listUserChannelRoles({ request, params, response }: HttpContextContract) {
@@ -36,6 +37,20 @@ export default class ChannelRolesController {
 
     return response.json({
       message: i18n.formatMessage('messages.success.successfully_assigned_role'),
+    });
+  }
+
+  public async destroyUserChannelRole({ params, response, i18n }: HttpContextContract) {
+    const { id: channelId, user_id: userId } = params;
+
+    const destroyUserChannelRoleUseCase = container.resolve(DestroyUserChannelRoleUseCase);
+
+    await destroyUserChannelRoleUseCase.execute(userId, channelId);
+
+    return response.status(204).json({
+      message: i18n.formatMessage('messages.successfully_deleted', {
+        model: i18n.formatMessage('models.channelRole'),
+      }),
     });
   }
 }

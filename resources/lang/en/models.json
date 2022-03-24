@@ -3,5 +3,6 @@
   "permission": "Permission",
   "role": "Role",
   "channel": "Channel",
-  "streaming": "Streaming"
+  "streaming": "Streaming",
+  "channelRole": "Channel role"
 }

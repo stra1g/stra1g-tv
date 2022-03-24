@@ -45,7 +45,7 @@ export class StoreUserChannelRoleUseCase {
     if (!channelRole) {
       throw new NotFoundException(
         i18n.formatMessage('messages.errors.not_found', {
-          model: i18n.formatMessage('models.role'),
+          model: i18n.formatMessage('models.channelRole'),
         })
       );
     }

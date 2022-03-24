@@ -64,4 +64,8 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
 
     return userChannelRole;
   }
+
+  public async destroyUserChannelRole(user: User, channelId: number): Promise<void> {
+    await user.related('channelRoles').pivotQuery().where({ channel_id: channelId }).delete();
+  }
 }
