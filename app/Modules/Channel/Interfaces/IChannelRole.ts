@@ -20,6 +20,7 @@ export namespace IChannelRole {
     getAvailableRoles(): Array<string>;
     findUserChannelRole(user: User, channelId: number): Promise<UserChannelRole | null>;
     destroyUserChannelRole(user: User, channelId: number): Promise<void>;
+    updateUserChannelRole(user: User, channelId: number, channelRoleId: number): Promise<void>;
   }
 
   export interface Helpers {

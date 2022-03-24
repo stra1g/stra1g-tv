@@ -20,6 +20,8 @@ Route.group(() => {
 
       Route.post('channels/user/roles', 'User/ChannelRolesController.storeUserChannelRole');
 
+      Route.put('channels/user/roles', 'User/ChannelRolesController.updateUserChannelRole');
+
       Route.delete(
         'channels/:id/user/:user_id/roles',
         'User/ChannelRolesController.destroyUserChannelRole'

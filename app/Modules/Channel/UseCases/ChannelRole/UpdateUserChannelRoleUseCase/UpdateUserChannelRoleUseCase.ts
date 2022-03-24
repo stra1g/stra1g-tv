@@ -3,18 +3,18 @@ import I18n from '@ioc:Adonis/Addons/I18n';
 import { inject, injectable } from 'tsyringe';
 
 import { IChannelRole } from 'App/Modules/Channel/Interfaces/IChannelRole';
+import { IUser } from 'App/Modules/User/Interfaces/IUser';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import AppException from 'App/Shared/Exceptions/AppException';
-import { IUser } from 'App/Modules/User/Interfaces/IUser';
 
-interface StoreUserChannelRoleRequest {
+interface UpdateUserChannelRoleRequest {
   channelRoleId: number;
   userId: number;
   channelId: number;
 }
 
 @injectable()
-export class StoreUserChannelRoleUseCase {
+export class UpdateUserChannelRoleUseCase {
   constructor(
     @inject('ChannelRolesRepository')
     private channelRolesRepository: IChannelRole.Repository,
@@ -26,7 +26,7 @@ export class StoreUserChannelRoleUseCase {
     channelId,
     channelRoleId,
     userId,
-  }: StoreUserChannelRoleRequest): Promise<void | NotFoundException | AppException> {
+  }: UpdateUserChannelRoleRequest): Promise<void | NotFoundException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
@@ -36,6 +36,16 @@ export class StoreUserChannelRoleUseCase {
       throw new NotFoundException(
         i18n.formatMessage('messages.errors.not_found', {
           model: i18n.formatMessage('models.user'),
+        })
+      );
+    }
+
+    const userChannelRole = await this.channelRolesRepository.findUserChannelRole(user, channelId);
+
+    if (!userChannelRole) {
+      throw new NotFoundException(
+        i18n.formatMessage('messages.errors.not_found', {
+          model: i18n.formatMessage('models.user_channel_role'),
         })
       );
     }
@@ -54,17 +64,6 @@ export class StoreUserChannelRoleUseCase {
       throw new AppException(i18n.formatMessage('messages.errors.duplicated_channel_owner'));
     }
 
-    const alreadyHasChannelRole = await this.channelRolesRepository.findUserChannelRole(
-      user,
-      channelId
-    );
-
-    if (alreadyHasChannelRole) {
-      throw new AppException(
-        i18n.formatMessage('messages.errors.user_already_has_role_in_channel')
-      );
-    }
-
-    await this.channelRolesRepository.storeUserChannelRole(channelRole, channelId, userId);
+    await this.channelRolesRepository.updateUserChannelRole(user, channelId, channelRoleId);
   }
 }

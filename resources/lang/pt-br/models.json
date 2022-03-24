@@ -4,5 +4,6 @@
   "role": "Cargo",
   "channel": "Canal",
   "streaming": "Transmissão",
-  "channelRole": "Cargo de canal"
+  "channel_role": "Cargo de canal",
+  "user_channel_role": "Cargo do usuário no canal"
 }

@@ -4,5 +4,6 @@
   "role": "Role",
   "channel": "Channel",
   "streaming": "Streaming",
-  "channelRole": "Channel role"
+  "channel_role": "Channel role",
+  "user_channel_role": "User role in channel"
 }
