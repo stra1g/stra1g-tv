@@ -32,11 +32,20 @@ async function startHttpServer() {
   await new Ignitor(__dirname).httpServer().start();
 }
 
+function getTestFiles() {
+  let userDefined = process.argv.slice(2)[0];
+  if (!userDefined) {
+    return ['app/Modules/**/UseCases/**/*.spec.ts', 'tests/*.spec.ts'];
+  }
+
+  return `${userDefined.replace(/\.ts$|\.js$/, '')}.ts`;
+}
+
 /**
  * Configure test runner
  */
 configure({
-  files: ['app/Modules/**/UseCases/**/*.spec.ts', 'tests/*.spec.ts'],
+  files: getTestFiles(),
   before: [runMigrations, runSeeders, startHttpServer],
   after: [rollbackMigrations],
 });
