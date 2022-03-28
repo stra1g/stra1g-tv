@@ -1,12 +1,12 @@
 import test from 'japa';
 import { stubObject } from 'ts-sinon';
+import { DateTime } from 'luxon';
 
 import { StoreUserChannelRoleUseCase } from './StoreUserChannelRoleUseCase';
 import { UsersRepositoryInMemory } from 'App/Modules/User/Repositories/InMemory/UsersRepositoryInMemory';
 import { ChannelRolesRepositoryInMemory } from 'App/Modules/Channel/Repositories/InMemory/ChannelRolesRepositoryInMemory';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 import AppException from 'App/Shared/Exceptions/AppException';
-import { DateTime } from 'luxon';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let channelRolesRepositoryInMemory: ChannelRolesRepositoryInMemory;
