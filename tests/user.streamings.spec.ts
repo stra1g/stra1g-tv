@@ -1,11 +1,19 @@
-import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
-import { ChannelFactory, StreamingFactory, UserFactory } from 'Database/factories';
+import I18n, { I18nContract } from '@ioc:Adonis/Addons/I18n';
 import test from 'japa';
 import supertest from 'supertest';
 
+import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
+import { ChannelFactory, StreamingFactory, UserFactory } from 'Database/factories';
+
 const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
-test.group('User: Streaming', () => {
+let i18n: I18nContract;
+
+test.group('User: Streaming', (group) => {
+  group.beforeEach(() => {
+    i18n = I18n.locale('pt-br');
+  });
+
   test('it should be able to create a new streaming', async (assert) => {
     const user = await UserFactory.merge({ password: '123456' }).create();
 
@@ -70,5 +78,34 @@ test.group('User: Streaming', () => {
       .send(data)
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(400);
+  });
+
+  test('it should be able to finish a streaming', async (assert) => {
+    const user = await UserFactory.merge({ password: '123456' }).create();
+
+    const {
+      body: { access_token: accessToken },
+    } = await supertest(BASE_URL)
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: '123456',
+      })
+      .expect(200);
+
+    const channel = await ChannelFactory.merge({ userId: user.id }).create();
+
+    const streaming = await StreamingFactory.merge({ channel_id: channel.id }).create();
+
+    const response = await supertest(BASE_URL)
+      .patch(`/streamings/${streaming.id}/finish`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(200);
+
+    assert.property(response.body, 'message');
+    assert.equal(
+      response.body.message,
+      i18n.formatMessage('messages.success.streaming_finished_successfully')
+    );
   });
 });
