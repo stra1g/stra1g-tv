@@ -1,5 +1,6 @@
 import Database, { SimplePaginatorContract } from '@ioc:Adonis/Lucid/Database';
 import User from 'App/Modules/User/Models/User';
+import { DateTime } from 'luxon';
 
 import { IChannelRole } from '../Interfaces/IChannelRole';
 import ChannelRole from '../Models/ChannelRole';
@@ -42,6 +43,7 @@ export class ChannelRolesRepository implements IChannelRole.Repository {
     await channelRole.related('channels').attach({
       [channelId]: {
         user_id: userId,
+        created_at: DateTime.now(),
       },
     });
   }
