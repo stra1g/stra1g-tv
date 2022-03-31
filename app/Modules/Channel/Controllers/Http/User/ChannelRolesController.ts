@@ -41,18 +41,14 @@ export default class ChannelRolesController {
     });
   }
 
-  public async destroyUserChannelRole({ params, response, i18n }: HttpContextContract) {
+  public async destroyUserChannelRole({ params, response }: HttpContextContract) {
     const { id: channelId, user_id: userId } = params;
 
     const destroyUserChannelRoleUseCase = container.resolve(DestroyUserChannelRoleUseCase);
 
     await destroyUserChannelRoleUseCase.execute(userId, channelId);
 
-    return response.status(204).json({
-      message: i18n.formatMessage('messages.successfully_deleted', {
-        model: i18n.formatMessage('models.channel_role'),
-      }),
-    });
+    return response.status(204);
   }
 
   public async updateUserChannelRole(ctx: HttpContextContract) {

@@ -139,4 +139,33 @@ test.group('Functional: User channel role', (group) => {
       i18n.formatMessage('messages.success.successfully_assigned_role')
     );
   });
+
+  test('it should be able to delete user channel role', async () => {
+    const user = await UserFactory.merge({ password: '123456' }).create();
+    const {
+      body: { access_token: accessToken },
+    } = await supertest(BASE_URL)
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: '123456',
+      })
+      .expect(200);
+
+    const channel = await ChannelFactory.merge({ userId: user.id }).create();
+
+    const channelRole = await ChannelRoleFactory.create();
+
+    const anotherUser = await UserFactory.create();
+    await channelRole.related('channels').attach({
+      [channel.id]: {
+        user_id: anotherUser.id,
+      },
+    });
+
+    await supertest(BASE_URL)
+      .delete(`/channels/${channel.id}/user/${anotherUser.id}/roles`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(204);
+  });
 });
