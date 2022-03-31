@@ -6,6 +6,8 @@ import { IUser } from '../../Interfaces/IUser';
 import User from '../../Models/User';
 
 export class UsersRepositoryInMemory implements IUser.Repository {
+  public users: User[] = [];
+
   public async index(
     _page: number,
     _perPage: number,
@@ -29,7 +31,6 @@ export class UsersRepositoryInMemory implements IUser.Repository {
   ): Promise<ChannelRole | null> {
     throw new Error('Method not implemented.');
   }
-  public users: User[] = [];
 
   public async store({ password, username, email, name }: IUser.DTO.Store): Promise<User> {
     const user = new User();
