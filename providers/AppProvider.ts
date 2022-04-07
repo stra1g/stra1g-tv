@@ -1,5 +1,4 @@
 import { ApplicationContract } from '@ioc:Adonis/Core/Application';
-import { MediaDriver } from './MediaDriver';
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -24,8 +23,8 @@ export default class AppProvider {
       return new BcryptCustom();
     });
 
-    const mediaDriverInstance = MediaDriver.getInstance();
-    mediaDriverInstance.run();
+    // Services
+    await import('../app/Services/Media');
   }
 
   public async ready() {

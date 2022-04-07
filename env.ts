@@ -22,6 +22,8 @@ export default Env.rules({
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
   APP_URL: Env.schema.string(),
 
+  RTMP_SERVER_URL: Env.schema.string(),
+
   DB_CONNECTION: Env.schema.string(),
 
   DRIVE_DISK: Env.schema.enum(['local'] as const),

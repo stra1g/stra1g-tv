@@ -27,7 +27,7 @@ export default class Token extends BaseModel {
   public is_revoked: boolean;
 
   @column.dateTime({ autoCreate: true })
-  public expires_at: DateTime;
+  public expires_at: DateTime | null;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

@@ -9,7 +9,9 @@ export class TokensRepository implements IToken.Repository {
   }
 
   public async findRefreshToken(token: string): Promise<Token | null> {
-    const foundToken = await Token.query().where({ token, type: 'refresh_token' }).first();
+    const foundToken = await Token.query()
+      .where({ token, type: IToken.TokenTypes.refreshToken })
+      .first();
 
     return foundToken;
   }
@@ -19,8 +21,14 @@ export class TokensRepository implements IToken.Repository {
   }
 
   public async findForgotPasswordToken(token: string): Promise<Token | null> {
-    const foundToken = await Token.query().where({ token, type: 'forgot_password' }).first();
+    const foundToken = await Token.query()
+      .where({ token, type: IToken.TokenTypes.forgotPassword })
+      .first();
 
     return foundToken;
+  }
+
+  public async revokeByUserAndType(userId: number, type: string): Promise<void> {
+    await Token.query().where({ user_id: userId, type }).update({ is_revoked: true });
   }
 }

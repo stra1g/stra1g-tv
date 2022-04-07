@@ -25,7 +25,7 @@ export class ForgotPasswordUseCase {
 
     const forgotPasswordToken = await this.tokensRepository.store({
       user_id: user.id,
-      type: 'forgot_password',
+      type: IToken.TokenTypes.forgotPassword,
       expires_at: DateTime.now().plus({ minutes: 10 }),
       name: 'Forgot password',
       token: stringToken,
@@ -38,7 +38,7 @@ export class ForgotPasswordUseCase {
       subject: 'Reset password process',
       htmlView: 'emails/forgot_password',
       params: {
-        forgot_password_url: `${Env.get('APP_URL')}password/reset?token=${
+        forgot_password_url: `${Env.get('APP_URL')}/password/reset?token=${
           forgotPasswordToken.token
         }`,
       },

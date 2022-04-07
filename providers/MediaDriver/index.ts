@@ -42,6 +42,8 @@ export class MediaDriver implements MediaDriverContract {
   public getSession(id: string): Map<string, unknown> {
     const session = this.nodeMediaServer.getSession(id);
 
+    console.log(session);
+
     return session;
   }
 }

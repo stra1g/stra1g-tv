@@ -7,16 +7,24 @@ export namespace IToken {
     findRefreshToken(token: string): Promise<Token | null>;
     findForgotPasswordToken(token: string): Promise<Token | null>;
     revokeById(token_id: number): Promise<void>;
+    revokeByUserAndType(userId: number, type: TokenTypes): Promise<void>;
   }
 
   export interface Helpers {}
+
+  export enum TokenTypes {
+    refreshToken = 'refresh_token',
+    accessToken = 'access_token',
+    forgotPassword = 'forgot_password',
+    streamingUser = 'user_streaming',
+  }
 
   export namespace DTO {
     export interface Store {
       name: string;
       token: string;
-      type: string;
-      expires_at: DateTime;
+      type: TokenTypes;
+      expires_at: DateTime | null;
       user_id: number;
     }
   }

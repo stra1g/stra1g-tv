@@ -48,7 +48,7 @@ export class RefreshTokenUseCase {
 
       await this.tokensRepository.store({
         user_id: user.id,
-        type: 'refresh_token',
+        type: IToken.TokenTypes.refreshToken,
         expires_at: DateTime.now().plus({ days: 15 }),
         name: 'Refresh Token',
         token: stringToken,

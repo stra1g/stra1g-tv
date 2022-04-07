@@ -1,10 +1,20 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 
 import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 import Streaming from 'App/Modules/Channel/Models/Streaming';
 import AppException from 'App/Shared/Exceptions/AppException';
+import { GetUserStreamingUrlUseCase } from '../GetUserStreamingUrlUseCase/GetUserStreamingUrlUseCase';
+
+interface StoreStreamingRequest extends IStreaming.DTO.Store {
+  userId: number;
+}
+
+interface StoreStreamingResponse {
+  streaming: Streaming;
+  url: string;
+}
 
 @injectable()
 export class StoreStreamingUseCase {
@@ -18,7 +28,8 @@ export class StoreStreamingUseCase {
     description,
     title,
     video_url,
-  }: IStreaming.DTO.Store): Promise<Streaming | AppException> {
+    userId,
+  }: StoreStreamingRequest): Promise<StoreStreamingResponse | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
@@ -37,6 +48,12 @@ export class StoreStreamingUseCase {
       video_url,
     });
 
-    return streaming;
+    const getUserStreamingUrlUseCase = container.resolve(GetUserStreamingUrlUseCase);
+    const url = await getUserStreamingUrlUseCase.execute(userId);
+
+    return {
+      streaming,
+      url,
+    };
   }
 }
