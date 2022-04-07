@@ -41,4 +41,7 @@ export default Env.rules({
 
   GMAIL_USER: Env.schema.string({ format: 'email' }),
   GMAIL_PASSWORD: Env.schema.string(),
+
+  MEDIA_RTMP_PORT: Env.schema.number(),
+  MEDIA_HTTP_PORT: Env.schema.number(),
 });

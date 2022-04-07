@@ -5,9 +5,9 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { DriveConfig } from '@ioc:Adonis/Core/Drive'
-import Application from '@ioc:Adonis/Core/Application'
+import Env from '@ioc:Adonis/Core/Env';
+import { DriveConfig } from '@ioc:Adonis/Core/Drive';
+import Application from '@ioc:Adonis/Core/Application';
 
 /*
 |--------------------------------------------------------------------------
@@ -143,6 +143,6 @@ const driveConfig: DriveConfig = {
     //   usingUniformAcl: false
     // },
   },
-}
+};
 
-export default driveConfig
+export default driveConfig;

@@ -12,8 +12,10 @@ export default class AppProvider {
     await import('../app/Shared/Container');
     const { BcryptCustom } = await import('./HashDriver');
     const { Gmail } = await import('./MailDriver');
+    const { MediaServer } = await import('./MediaDriver');
     const Hash = this.app.container.use('Adonis/Core/Hash');
     const Mail = this.app.container.use('Adonis/Addons/Mail');
+    const mediaServer = new MediaServer();
 
     Mail.extend('gmail', (_mail, _mapping, config) => {
       return new Gmail(config);
@@ -22,6 +24,8 @@ export default class AppProvider {
     Hash.extend('bcryptCustom', () => {
       return new BcryptCustom();
     });
+
+    mediaServer.run();
   }
 
   public async ready() {
