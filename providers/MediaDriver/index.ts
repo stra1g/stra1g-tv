@@ -1,37 +1,46 @@
 import mediaConfig from 'Config/media';
 import NodeMediaServer from 'node-media-server';
 
-interface MediaServerContract {
+export interface MediaDriverContract {
   run(): void;
   on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
   stop(): void;
   getSession(id: string): Map<string, unknown>;
 }
 
-export class MediaServer implements MediaServerContract {
-  private mediaServer: NodeMediaServer;
+export class MediaDriver implements MediaDriverContract {
+  private nodeMediaServer: NodeMediaServer;
+  private static instance: MediaDriver;
 
   constructor() {
-    this.mediaServer = new NodeMediaServer(mediaConfig);
+    this.nodeMediaServer = new NodeMediaServer(mediaConfig);
+  }
+
+  public static getInstance(): MediaDriver {
+    if (!MediaDriver.instance) {
+      MediaDriver.instance = new MediaDriver();
+    }
+
+    return MediaDriver.instance;
   }
 
   public run(): void {
-    this.mediaServer.run();
+    this.nodeMediaServer.run();
   }
 
   public on(
     eventName: string,
     listener: (id: string, StreamPath: string, args: object) => void
   ): void {
-    this.mediaServer.on(eventName, listener);
+    this.nodeMediaServer.on(eventName, listener);
   }
 
   public stop(): void {
-    this.mediaServer.stop();
+    this.nodeMediaServer.stop();
   }
 
   public getSession(id: string): Map<string, unknown> {
-    const session = this.mediaServer.getSession(id);
+    const session = this.nodeMediaServer.getSession(id);
 
     return session;
   }

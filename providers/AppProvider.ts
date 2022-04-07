@@ -1,4 +1,5 @@
 import { ApplicationContract } from '@ioc:Adonis/Core/Application';
+import { MediaDriver } from './MediaDriver';
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -12,10 +13,8 @@ export default class AppProvider {
     await import('../app/Shared/Container');
     const { BcryptCustom } = await import('./HashDriver');
     const { Gmail } = await import('./MailDriver');
-    const { MediaServer } = await import('./MediaDriver');
     const Hash = this.app.container.use('Adonis/Core/Hash');
     const Mail = this.app.container.use('Adonis/Addons/Mail');
-    const mediaServer = new MediaServer();
 
     Mail.extend('gmail', (_mail, _mapping, config) => {
       return new Gmail(config);
@@ -25,7 +24,8 @@ export default class AppProvider {
       return new BcryptCustom();
     });
 
-    mediaServer.run();
+    const mediaDriverInstance = MediaDriver.getInstance();
+    mediaDriverInstance.run();
   }
 
   public async ready() {
