@@ -14,7 +14,7 @@ export const getQueryParams = (url: string): QueryParams => {
 
     const slashIndex = value.indexOf('/');
 
-    if (slashIndex) {
+    if (slashIndex !== -1) {
       Object.assign(queryParams, {
         stream_key: value.substring(slashIndex + 1, value.length),
       });
