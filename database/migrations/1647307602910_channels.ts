@@ -12,6 +12,7 @@ export default class Channels extends BaseSchema {
       table.boolean('online').defaultTo(false);
       table.boolean('banned').defaultTo(false);
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
+      table.string('stream_key');
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

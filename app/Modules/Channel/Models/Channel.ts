@@ -14,7 +14,6 @@ import {
 } from '@ioc:Adonis/Lucid/Orm';
 import User from 'App/Modules/User/Models/User';
 import ChannelRole from './ChannelRole';
-//import { BaseModel } from 'App/Shared/Model/BaseModel';
 
 export default class Channel extends BaseModel {
   @column({ isPrimary: true })
@@ -31,6 +30,9 @@ export default class Channel extends BaseModel {
 
   @column()
   public online: boolean;
+
+  @column({ serializeAs: null })
+  public stream_key: string;
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime;

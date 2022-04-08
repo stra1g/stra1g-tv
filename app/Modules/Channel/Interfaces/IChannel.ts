@@ -17,6 +17,7 @@ export namespace IChannel {
       name: string;
       description: string;
       user_id: number;
+      stream_key: string;
     }
 
     export interface Update {

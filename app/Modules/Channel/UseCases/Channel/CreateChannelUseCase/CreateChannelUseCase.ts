@@ -1,6 +1,7 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
 import { inject, injectable } from 'tsyringe';
+import crypto from 'node:crypto';
 
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import AppException from 'App/Shared/Exceptions/AppException';
@@ -31,7 +32,14 @@ export class CreateChannelUseCase {
       );
     }
 
-    const channel = await this.channelsRepository.store({ description, name, user_id });
+    const streamKey = crypto.randomBytes(8).toString('hex');
+
+    const channel = await this.channelsRepository.store({
+      description,
+      name,
+      user_id,
+      stream_key: streamKey,
+    });
 
     return channel;
   }

@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 
-import { schema, rules } from '@ioc:Adonis/Core/Validator';
+import { schema } from '@ioc:Adonis/Core/Validator';
 
 export namespace StreamingValidator {
   export class Store {
@@ -18,8 +18,8 @@ export namespace StreamingValidator {
       const storeSchema = schema.create({
         title: schema.string(),
         description: schema.string(),
-        channel_id: schema.number([rules.exists({ table: 'channels', column: 'id' })]),
-        video_url: schema.string(),
+        channel_id: schema.number(),
+        video_url: schema.string.nullableAndOptional(),
       });
 
       return { schema: storeSchema, messages: this.messages };

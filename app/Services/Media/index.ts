@@ -1,12 +1,15 @@
+import { container } from 'tsyringe';
 import { MediaDriver } from '../../../providers/MediaDriver';
+import { PreConnectEvent } from './events/PreConnectEvent';
 
 const mediaDriverInstance = MediaDriver.getInstance();
 
 mediaDriverInstance.run();
 
-mediaDriverInstance.on('preConnect', (id: string, args: string) => {
-  console.log('[NodeEvent on preConnect]', `id=${id} args=${JSON.stringify(args)}`);
-  mediaDriverInstance.getSession(id);
+const preConnectEvent = container.resolve(PreConnectEvent);
+
+mediaDriverInstance.on('preConnect', (id: string, streamPath: any, args: object) => {
+  preConnectEvent.execute(id, streamPath, args);
 });
 
 export { mediaDriverInstance };

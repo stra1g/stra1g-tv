@@ -15,7 +15,7 @@ export default class Streaming extends BaseModel {
   public description: string;
 
   @column()
-  public channel_id: number;
+  public channelId: number;
 
   @column()
   public video_url: string;
@@ -48,6 +48,15 @@ export default class Streaming extends BaseModel {
   public static async insertDeletedAt(streaming: Streaming) {
     if (streaming.is_deleted) {
       streaming.deleted_at = DateTime.now();
+    }
+  }
+
+  @beforeUpdate()
+  public static async insertChannelOnline(streaming: Streaming) {
+    if (streaming.video_url) {
+      streaming.channel.online = true;
+
+      await streaming.channel.save();
     }
   }
 }

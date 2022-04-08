@@ -3,7 +3,7 @@ import NodeMediaServer from 'node-media-server';
 
 export interface MediaDriverContract {
   run(): void;
-  on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
+  on(eventName: string, listener: (id: string, StreamPath: any, args: object) => void): void;
   stop(): void;
   getSession(id: string): Map<string, unknown>;
 }
@@ -30,7 +30,7 @@ export class MediaDriver implements MediaDriverContract {
 
   public on(
     eventName: string,
-    listener: (id: string, StreamPath: string, args: object) => void
+    listener: (id: string, StreamPath: any, args: object) => void
   ): void {
     this.nodeMediaServer.on(eventName, listener);
   }
@@ -39,10 +39,8 @@ export class MediaDriver implements MediaDriverContract {
     this.nodeMediaServer.stop();
   }
 
-  public getSession(id: string): Map<string, unknown> {
+  public getSession(id: string): any {
     const session = this.nodeMediaServer.getSession(id);
-
-    console.log(session);
 
     return session;
   }

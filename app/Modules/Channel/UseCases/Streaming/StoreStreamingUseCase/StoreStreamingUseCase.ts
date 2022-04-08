@@ -6,6 +6,8 @@ import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 import Streaming from 'App/Modules/Channel/Models/Streaming';
 import AppException from 'App/Shared/Exceptions/AppException';
 import { GetUserStreamingUrlUseCase } from '../GetUserStreamingUrlUseCase/GetUserStreamingUrlUseCase';
+import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
+import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 
 interface StoreStreamingRequest extends IStreaming.DTO.Store {
   userId: number;
@@ -14,13 +16,16 @@ interface StoreStreamingRequest extends IStreaming.DTO.Store {
 interface StoreStreamingResponse {
   streaming: Streaming;
   url: string;
+  stream_key: string;
 }
 
 @injectable()
 export class StoreStreamingUseCase {
   constructor(
     @inject('StreamingsRepository')
-    private streamingsRepository: IStreaming.Repository
+    private streamingsRepository: IStreaming.Repository,
+    @inject('ChannelsRepository')
+    private channelsRepository: IChannel.Repository
   ) {}
 
   public async execute({
@@ -32,6 +37,16 @@ export class StoreStreamingUseCase {
   }: StoreStreamingRequest): Promise<StoreStreamingResponse | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
+
+    const channel = await this.channelsRepository.findBy('id', channel_id);
+
+    if (!channel) {
+      throw new NotFoundException(
+        i18n.formatMessage('messages.errors.not_found', {
+          model: i18n.formatMessage('models.channel'),
+        })
+      );
+    }
 
     const alreadyHasOnlineStreaming = await this.streamingsRepository.findOnlineStreamingByChannel(
       channel_id
@@ -54,6 +69,7 @@ export class StoreStreamingUseCase {
     return {
       streaming,
       url,
+      stream_key: channel.stream_key,
     };
   }
 }

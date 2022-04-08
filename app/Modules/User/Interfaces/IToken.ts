@@ -6,6 +6,7 @@ export namespace IToken {
     store(data: DTO.Store): Promise<Token>;
     findRefreshToken(token: string): Promise<Token | null>;
     findForgotPasswordToken(token: string): Promise<Token | null>;
+    findStreamingUserToken(token: string): Promise<Token | null>;
     revokeById(token_id: number): Promise<void>;
     revokeByUserAndType(userId: number, type: TokenTypes): Promise<void>;
   }

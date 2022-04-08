@@ -22,13 +22,12 @@ export default class AppProvider {
     Hash.extend('bcryptCustom', () => {
       return new BcryptCustom();
     });
-
-    // Services
-    await import('../app/Services/Media');
   }
 
   public async ready() {
     // App is ready
+    // Services
+    await import('../app/Services/Media');
   }
 
   public async shutdown() {
