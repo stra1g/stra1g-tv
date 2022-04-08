@@ -11,7 +11,7 @@ export class GetUserStreamingUrlUseCase {
     private tokensRepository: IToken.Repository
   ) {}
 
-  public async execute(userId: number): Promise<string> {
+  public async execute(userId: number, streamKey: string): Promise<string> {
     await this.tokensRepository.revokeByUserAndType(userId, IToken.TokenTypes.streamingUser);
 
     const token = crypto.randomBytes(32).toString('hex');
@@ -24,7 +24,7 @@ export class GetUserStreamingUrlUseCase {
       type: IToken.TokenTypes.streamingUser,
     });
 
-    const streamingServerUrl = `${Env.get('RTMP_SERVER_URL')}?auth_token=${token}`;
+    const streamingServerUrl = `${Env.get('RTMP_SERVER_URL')}/${streamKey}?auth_token=${token}`;
 
     return streamingServerUrl;
   }

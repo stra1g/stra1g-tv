@@ -10,7 +10,18 @@ export const getQueryParams = (url: string): QueryParams => {
   const queryParams = {};
 
   queryParamsArray.forEach((item) => {
-    let [key, value] = item.split('=');
+    let arr = item.split('=');
+
+    let key = '';
+    let value = '';
+
+    if (arr.length > 1) {
+      key = arr[0];
+      value = arr[1];
+    } else {
+      key = 'auth_token';
+      value = arr[0];
+    }
 
     const slashIndex = value.indexOf('/');
 

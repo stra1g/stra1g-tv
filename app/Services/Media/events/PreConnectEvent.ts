@@ -17,22 +17,29 @@ export class PreConnectEvent {
   public async execute(id: string, streamPath: StreamPath, _args: object): Promise<void> {
     const session = mediaDriverInstance.getSession(id);
 
-    const queryParams = getQueryParams(streamPath.app);
+    if (streamPath.app || streamPath.query) {
+      const field = streamPath.app ?? streamPath.query?.auth_token;
+      const queryParams = getQueryParams(field);
 
-    if (queryParams.auth_token) {
-      const getStreamingByTokenUseCase = container.resolve(GetStreamingByTokenUseCase);
+      if (queryParams.auth_token) {
+        const getStreamingByTokenUseCase = container.resolve(GetStreamingByTokenUseCase);
 
-      const streaming = await getStreamingByTokenUseCase.execute(queryParams.auth_token);
+        const streaming = await getStreamingByTokenUseCase.execute(queryParams.auth_token);
 
-      if (!streaming) {
-        return session.reject();
+        if (!streaming) {
+          return session.reject();
+        }
+
+        const videoUrl = `${Env.get('APP_URL')}:${Env.get('MEDIA_HTTP_PORT')}/live/${
+          streaming.channel.stream_key
+        }.flv`;
+
+        console.log(`[VIDEOURL]: ${videoUrl}`);
+
+        await this.streamingsRepository.update(streaming, {
+          video_url: videoUrl,
+        });
       }
-
-      const videoUrl = `${Env.get('APP_URL')}/live/${streaming.channel.stream_key}`;
-
-      await this.streamingsRepository.update(streaming, {
-        video_url: videoUrl,
-      });
     }
   }
 }

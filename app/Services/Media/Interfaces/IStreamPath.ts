@@ -5,4 +5,7 @@ export interface StreamPath {
   flashVer?: string;
   swfUrl?: string;
   tcUrl?: string;
+  query?: {
+    [key: string]: string;
+  };
 }

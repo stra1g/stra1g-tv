@@ -64,7 +64,7 @@ export class StoreStreamingUseCase {
     });
 
     const getUserStreamingUrlUseCase = container.resolve(GetUserStreamingUrlUseCase);
-    const url = await getUserStreamingUrlUseCase.execute(userId);
+    const url = await getUserStreamingUrlUseCase.execute(userId, channel.stream_key);
 
     return {
       streaming,
