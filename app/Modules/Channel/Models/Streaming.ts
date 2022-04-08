@@ -14,7 +14,7 @@ export default class Streaming extends BaseModel {
   @column()
   public description: string;
 
-  @column()
+  @column({ serializeAs: null })
   public channelId: number;
 
   @column()
@@ -26,7 +26,7 @@ export default class Streaming extends BaseModel {
   @column.dateTime({ serializeAs: null })
   public deleted_at: DateTime;
 
-  @column.dateTime({ autoCreate: true, serializeAs: null })
+  @column.dateTime({ autoCreate: true })
   public created_at: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: null })
