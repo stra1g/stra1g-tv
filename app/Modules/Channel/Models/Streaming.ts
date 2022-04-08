@@ -56,7 +56,16 @@ export default class Streaming extends BaseModel {
     if (streaming.video_url) {
       streaming.channel.online = true;
 
-      await streaming.channel.save();
+      return streaming.channel.save();
+    }
+  }
+
+  @beforeUpdate()
+  public static async removeChannelOnline(streaming: Streaming) {
+    if (streaming.finished_at) {
+      streaming.channel.online = false;
+
+      return streaming.channel.save();
     }
   }
 }

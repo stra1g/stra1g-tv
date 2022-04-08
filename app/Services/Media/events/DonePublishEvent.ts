@@ -1,23 +1,22 @@
-import Env from '@ioc:Adonis/Core/Env';
 import { container, inject, injectable } from 'tsyringe';
 
-import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 import { mediaDriverInstance } from '../index';
 import { getQueryParams } from '../Utils/getQueryParams';
-import { StreamPath } from '../Interfaces/IStreamPath';
 import { GetStreamingByTokenUseCase } from '../UseCases/GetStreamingByTokenUseCase/GetStreamingByTokenUseCase';
+import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 
 @injectable()
-export class PreConnectEvent {
+export class DonePublishEvent {
   constructor(
     @inject('StreamingsRepository')
     private streamingsRepository: IStreaming.Repository
   ) {}
 
-  public async execute(id: string, streamPath: StreamPath, _args: object): Promise<void> {
+  public async execute(id: string, streamPath: string, _args: object) {
+    console.log(`[DonePublish]: Executing`);
     const session = mediaDriverInstance.getSession(id);
 
-    const queryParams = getQueryParams(streamPath.app);
+    const queryParams = getQueryParams(streamPath);
 
     if (queryParams.auth_token) {
       const getStreamingByTokenUseCase = container.resolve(GetStreamingByTokenUseCase);
@@ -28,11 +27,7 @@ export class PreConnectEvent {
         return session.reject();
       }
 
-      const videoUrl = `${Env.get('APP_URL')}/live/${streaming.channel.stream_key}`;
-
-      await this.streamingsRepository.update(streaming, {
-        video_url: videoUrl,
-      });
+      await this.streamingsRepository.finishStreaming(streaming);
     }
   }
 }
