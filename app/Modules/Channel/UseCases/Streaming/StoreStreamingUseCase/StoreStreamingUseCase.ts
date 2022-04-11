@@ -1,6 +1,6 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
-import { container, inject, injectable } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
 import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 import Streaming from 'App/Modules/Channel/Models/Streaming';
