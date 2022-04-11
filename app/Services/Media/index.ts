@@ -1,17 +1,17 @@
 import { container } from 'tsyringe';
 import { MediaDriver } from '../../../providers/MediaDriver';
 import { DonePublishEvent } from './events/DonePublishEvent';
-import { PreConnectEvent } from './events/PreConnectEvent';
+import { PrePublishEvent } from './events/PrePublishEvent';
 
 const mediaDriverInstance = MediaDriver.getInstance();
 
 mediaDriverInstance.run();
 
-const preConnectEvent = container.resolve(PreConnectEvent);
+const prePublishEvent = container.resolve(PrePublishEvent);
 const donePublishEvent = container.resolve(DonePublishEvent);
 
-mediaDriverInstance.on('preConnect', (id: string, streamPath: any, args: object) => {
-  preConnectEvent.execute(id, streamPath, args);
+mediaDriverInstance.on('prePublish', (id: string, streamPath: any, args: object) => {
+  prePublishEvent.execute(id, streamPath, args);
 });
 
 mediaDriverInstance.on('donePublish', (id: string, streamPath: any, args: object) => {

@@ -9,3 +9,7 @@ export interface StreamPath {
     [key: string]: string;
   };
 }
+
+export interface PrePublishArgs {
+  key?: string;
+}
