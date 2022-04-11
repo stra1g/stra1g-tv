@@ -26,6 +26,9 @@ Route.group(() => {
         'channels/:id/user/:user_id/roles',
         'User/ChannelRolesController.destroyUserChannelRole'
       );
+
+      Route.get('channels/:id/stream_key', 'User/ChannelsController.getStreamKeyByChannel');
+      Route.put('channels/:id/stream_key', 'User/ChannelsController.generateStreamKeyByChannel');
     }).middleware('channelRole:owner');
 
     Route.post('streamings', 'User/StreamingsController.store').middleware('channelRole:owner');

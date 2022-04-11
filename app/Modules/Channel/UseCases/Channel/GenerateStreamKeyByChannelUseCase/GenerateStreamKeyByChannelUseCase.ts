@@ -1,12 +1,13 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext';
 import I18n from '@ioc:Adonis/Addons/I18n';
 import { inject, injectable } from 'tsyringe';
+import crypto from 'node:crypto';
 
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
 
 @injectable()
-export class GetStreamingKeyByChannelUseCase {
+export class GenerateStreamKeyByChannelUseCase {
   constructor(
     @inject('ChannelsRepository')
     private channelsRepository: IChannel.Repository
@@ -26,6 +27,10 @@ export class GetStreamingKeyByChannelUseCase {
       );
     }
 
-    return channel.stream_key;
+    const streamKey = crypto.randomBytes(8).toString('hex');
+
+    await this.channelsRepository.update(channel, { stream_key: streamKey });
+
+    return streamKey;
   }
 }

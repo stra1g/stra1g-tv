@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { CreateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/CreateChannelUseCase/CreateChannelUseCase';
+import { GenerateStreamKeyByChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/GenerateStreamKeyByChannelUseCase/GenerateStreamKeyByChannelUseCase';
+import { GetStreamKeyByChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/GetStreamKeyByChannelUseCase/GetStreamingKeyByChannelUseCase';
 import { ShowChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/ShowChannelUseCase/ShowChannelUseCase';
 import { UpdateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/UpdateChannelUseCase/UpdateChannelUseCase';
 import { ChannelValidator } from 'App/Modules/Channel/Validators/Channel';
@@ -50,5 +52,26 @@ export default class ChannelsController {
     const channel = await showChannelUseCase.execute(id);
 
     return response.json(channel);
+  }
+
+  public async getStreamKeyByChannel({ params, response }: HttpContextContract): Promise<void> {
+    const { id: channelId } = params;
+
+    const getStreamKeyByChannelUseCase = container.resolve(GetStreamKeyByChannelUseCase);
+    const streamKey = await getStreamKeyByChannelUseCase.execute(channelId);
+
+    return response.json(streamKey);
+  }
+
+  public async generateStreamKeyByChannel({
+    params,
+    response,
+  }: HttpContextContract): Promise<void> {
+    const { id: channelId } = params;
+
+    const generateStreamKeyByChannelUseCase = container.resolve(GenerateStreamKeyByChannelUseCase);
+    const streamKey = await generateStreamKeyByChannelUseCase.execute(channelId);
+
+    return response.json(streamKey);
   }
 }

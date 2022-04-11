@@ -7,6 +7,12 @@ import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import AppException from 'App/Shared/Exceptions/AppException';
 import Channel from 'App/Modules/Channel/Models/Channel';
 
+type CreateChannelRequest = {
+  description: string;
+  name: string;
+  user_id: number;
+};
+
 @injectable()
 export class CreateChannelUseCase {
   constructor(
@@ -18,7 +24,7 @@ export class CreateChannelUseCase {
     description,
     name,
     user_id,
-  }: IChannel.DTO.Store): Promise<Channel | AppException> {
+  }: CreateChannelRequest): Promise<Channel | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 

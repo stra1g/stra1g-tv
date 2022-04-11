@@ -23,6 +23,7 @@ export namespace IChannel {
     export interface Update {
       name?: string;
       description?: string;
+      stream_key?: string;
     }
   }
 }
