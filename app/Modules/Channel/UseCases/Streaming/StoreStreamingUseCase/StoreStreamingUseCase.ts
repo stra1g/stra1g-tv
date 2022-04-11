@@ -5,18 +5,12 @@ import { container, inject, injectable } from 'tsyringe';
 import { IStreaming } from 'App/Modules/Channel/Interfaces/IStreaming';
 import Streaming from 'App/Modules/Channel/Models/Streaming';
 import AppException from 'App/Shared/Exceptions/AppException';
-import { GetUserStreamingUrlUseCase } from '../GetUserStreamingUrlUseCase/GetUserStreamingUrlUseCase';
 import { IChannel } from 'App/Modules/Channel/Interfaces/IChannel';
 import NotFoundException from 'App/Shared/Exceptions/NotFoundException';
-
-interface StoreStreamingRequest extends IStreaming.DTO.Store {
-  userId: number;
-}
 
 interface StoreStreamingResponse {
   streaming: Streaming;
   url: string;
-  stream_key: string;
 }
 
 @injectable()
@@ -33,8 +27,7 @@ export class StoreStreamingUseCase {
     description,
     title,
     video_url,
-    userId,
-  }: StoreStreamingRequest): Promise<StoreStreamingResponse | AppException> {
+  }: IStreaming.DTO.Store): Promise<StoreStreamingResponse | AppException> {
     const ctx = HttpContext.get()!;
     const i18n = ctx ? ctx.i18n : I18n.locale('pt-br');
 
@@ -63,13 +56,11 @@ export class StoreStreamingUseCase {
       video_url,
     });
 
-    const getUserStreamingUrlUseCase = container.resolve(GetUserStreamingUrlUseCase);
-    const url = await getUserStreamingUrlUseCase.execute(userId, channel.stream_key);
+    const url = `rtmp://localhost/live`;
 
     return {
       streaming,
       url,
-      stream_key: channel.stream_key,
     };
   }
 }

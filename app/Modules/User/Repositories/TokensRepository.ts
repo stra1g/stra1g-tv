@@ -39,13 +39,4 @@ export class TokensRepository implements IToken.Repository {
   public async revokeByUserAndType(userId: number, type: string): Promise<void> {
     await this.repository.query().where({ user_id: userId, type }).update({ is_revoked: true });
   }
-
-  public async findStreamingUserToken(token: string): Promise<Token | null> {
-    const foundToken = await this.repository
-      .query()
-      .where({ token, type: IToken.TokenTypes.streamingUser })
-      .first();
-
-    return foundToken;
-  }
 }

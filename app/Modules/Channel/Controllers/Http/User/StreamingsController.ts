@@ -6,20 +6,15 @@ import { container } from 'tsyringe';
 
 export default class StreamingsController {
   public async store(ctx: HttpContextContract) {
-    const { request, response, auth } = ctx;
+    const { request, response } = ctx;
 
-    if (auth.user) {
-      const validator = await new StreamingValidator.Store(ctx).createSchema();
-      const streamingDTO = await request.validate(validator);
+    const validator = await new StreamingValidator.Store(ctx).createSchema();
+    const streamingDTO = await request.validate(validator);
 
-      const storeStreamingUseCase = container.resolve(StoreStreamingUseCase);
-      const streaming = await storeStreamingUseCase.execute({
-        ...streamingDTO,
-        userId: auth.user.id,
-      });
+    const storeStreamingUseCase = container.resolve(StoreStreamingUseCase);
+    const streaming = await storeStreamingUseCase.execute(streamingDTO);
 
-      return response.status(201).json(streaming);
-    }
+    return response.status(201).json(streaming);
   }
 
   public async finishStreaming({ params, response, i18n }: HttpContextContract) {

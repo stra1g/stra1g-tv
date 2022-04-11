@@ -19,7 +19,7 @@ export namespace IStreaming {
       title: string;
       description: string;
       channel_id: number;
-      video_url: string;
+      video_url: string | undefined | null;
     }
 
     export interface Update {
