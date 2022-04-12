@@ -14,7 +14,8 @@ export class StreamingsRepositoryInMemory implements IStreaming.Repository {
     const streaming = new Streaming();
 
     Object.assign(streaming, {
-      channel_id,
+      channelId: channel_id,
+      created_at: DateTime.now(),
       description,
       title,
       video_url,
@@ -29,7 +30,7 @@ export class StreamingsRepositoryInMemory implements IStreaming.Repository {
 
   public async findOnlineStreaming(channelId: number): Promise<Streaming | null> {
     const streaming = this.streamings.find(
-      (streaming) => streaming.channel_id === channelId && streaming.finished_at === null
+      (streaming) => streaming.channelId === channelId && streaming.finished_at === null
     );
 
     if (!streaming) return null;
@@ -47,7 +48,7 @@ export class StreamingsRepositoryInMemory implements IStreaming.Repository {
 
   public async findOnlineStreamingByChannel(channelId: number): Promise<Streaming | null> {
     const streaming = this.streamings.find(
-      (streaming) => streaming.channel_id === channelId && streaming.finished_at === null
+      (streaming) => streaming.channelId === channelId && streaming.finished_at === null
     );
 
     if (!streaming) return null;
@@ -63,5 +64,13 @@ export class StreamingsRepositoryInMemory implements IStreaming.Repository {
     this.streamings.splice(index, 1, streaming);
 
     return streaming;
+  }
+
+  public async getCurrentStreamingByUser(userId: number): Promise<Streaming | null> {
+    throw new Error('Method not implemented.');
+  }
+
+  public async update(streaming: Streaming, payload: IStreaming.DTO.Update): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 }

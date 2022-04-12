@@ -33,7 +33,6 @@ test.group('User: Streaming', (group) => {
       channel_id: channel.id,
       description: 'streaming description',
       title: 'streaming title',
-      video_url: 'https://anyurl.com',
     };
 
     const response = await supertest(BASE_URL)
@@ -42,11 +41,12 @@ test.group('User: Streaming', (group) => {
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(201);
 
-    assert.property(response.body, 'id');
-    assert.property(response.body, 'channel_id');
-    assert.property(response.body, 'description');
-    assert.property(response.body, 'title');
-    assert.property(response.body, 'video_url');
+    assert.property(response.body, 'streaming');
+    assert.property(response.body.streaming, 'description');
+    assert.property(response.body.streaming, 'title');
+    assert.property(response.body.streaming, 'created_at');
+    assert.property(response.body, 'url');
+    assert.isString(response.body.url);
   });
 
   test('it should not be able to create a new streaming with another one online to same channel', async () => {
@@ -64,7 +64,7 @@ test.group('User: Streaming', (group) => {
 
     const channel = await ChannelFactory.merge({ userId: user.id }).create();
 
-    await StreamingFactory.merge({ channel_id: channel.id }).create();
+    await StreamingFactory.merge({ channelId: channel.id }).create();
 
     const data: IStreaming.DTO.Store = {
       channel_id: channel.id,
@@ -78,34 +78,5 @@ test.group('User: Streaming', (group) => {
       .send(data)
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(400);
-  });
-
-  test('it should be able to finish a streaming', async (assert) => {
-    const user = await UserFactory.merge({ password: '123456' }).create();
-
-    const {
-      body: { access_token: accessToken },
-    } = await supertest(BASE_URL)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: '123456',
-      })
-      .expect(200);
-
-    const channel = await ChannelFactory.merge({ userId: user.id }).create();
-
-    const streaming = await StreamingFactory.merge({ channel_id: channel.id }).create();
-
-    const response = await supertest(BASE_URL)
-      .patch(`/streamings/${streaming.id}/finish`)
-      .set('Authorization', `Bearer ${accessToken}`)
-      .expect(200);
-
-    assert.property(response.body, 'message');
-    assert.equal(
-      response.body.message,
-      i18n.formatMessage('messages.success.streaming_finished_successfully')
-    );
   });
 });

@@ -8,10 +8,10 @@ const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`;
 
 test.group('User: Forgot Password', () => {
   test('it should be able to send a forgot password mail', async (assert) => {
-    const user = await UserFactory.create();
+    const { email } = await UserFactory.merge({ email: 'stra1g@zohomail.com' }).create();
 
     const response = await supertest(BASE_URL).post('/password/forgot').send({
-      email: user.email,
+      email,
     });
 
     assert.equal(response.status, 200);
