@@ -7,3 +7,4 @@ coverage
 .env.testing
 tmp
 .nyc_output
+media/
