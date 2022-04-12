@@ -32,6 +32,5 @@ Route.group(() => {
     }).middleware('channelRole:owner');
 
     Route.post('streamings', 'User/StreamingsController.store').middleware('channelRole:owner');
-    Route.patch('streamings/:id/finish', 'User/StreamingsController.finishStreaming');
   }).middleware('auth');
 }).namespace('App/Modules/Channel/Controllers/Http');
