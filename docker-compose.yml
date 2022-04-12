@@ -30,6 +30,8 @@ services:
       - postgres
     ports:
       - 3333:3333
+      - 8000:8000
+      - 1935:1935
     env_file:
       - .env
     environment:
