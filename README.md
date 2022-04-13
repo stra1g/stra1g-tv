@@ -1,6 +1,6 @@
 # 🚀 **STRA1G-TV**
 
-> That's a project to simulate the a live streaming platform
+> This is a project to compose a live streaming platform
 &emsp; 
 
 ## Setup enviroment variables
