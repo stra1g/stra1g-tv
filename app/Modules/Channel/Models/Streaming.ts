@@ -1,4 +1,4 @@
-import { beforeUpdate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
+import { beforeUpdate, BelongsTo, belongsTo, column, scope } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon';
 
 import { BaseModel } from 'App/Shared/Model/BaseModel';
@@ -68,4 +68,18 @@ export default class Streaming extends BaseModel {
       return streaming.channel.save();
     }
   }
+
+  /**
+   * Scopes
+   */
+  public static Orsearch = scope((query, search) => {
+    const fields = ['title'];
+    let sql = '';
+
+    fields.forEach((field, index) => {
+      sql += ` ${index !== 0 ? ' or ' : ' '} ${field} ilike '%${search}%'`;
+    });
+
+    return query.orWhereRaw(`(${sql})`);
+  });
 }

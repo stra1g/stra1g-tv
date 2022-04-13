@@ -6,6 +6,7 @@ Route.group(() => {
    */
   Route.group(() => {
     Route.get('channels/:id', 'User/ChannelsController.show');
+    Route.get('channels', 'User/ChannelsController.list');
   });
 
   /**

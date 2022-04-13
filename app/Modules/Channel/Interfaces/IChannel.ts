@@ -1,3 +1,4 @@
+import { ModelAttributes, ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm';
 import Channel from '../Models/Channel';
 
 export namespace IChannel {
@@ -6,7 +7,15 @@ export namespace IChannel {
     show(channelId: number): Promise<Channel | null>;
     update(channel: Channel, payload: DTO.Update): Promise<Channel>;
     findByUserAndChannel(userId: number, channelId: number): Promise<Channel | null>;
+    list(
+      page: number,
+      perPage: number,
+      search: string,
+      online: boolean | null
+    ): Promise<ModelPaginatorContract<Channel>>;
   }
+
+  export type ChannelModelAttributes = Partial<ModelAttributes<Channel>>;
 
   export interface Helpers {
     findBy(key: string, value: any): Promise<Channel | null>;

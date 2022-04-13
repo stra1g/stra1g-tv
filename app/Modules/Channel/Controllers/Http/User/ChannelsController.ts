@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { CreateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/CreateChannelUseCase/CreateChannelUseCase';
 import { GenerateStreamKeyByChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/GenerateStreamKeyByChannelUseCase/GenerateStreamKeyByChannelUseCase';
 import { GetStreamKeyByChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/GetStreamKeyByChannelUseCase/GetStreamingKeyByChannelUseCase';
+import { ListOnlineChannelsUseCase } from 'App/Modules/Channel/UseCases/Channel/ListOnlineChannelsUseCase/ListOnlineChannelsUseCase';
 import { ShowChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/ShowChannelUseCase/ShowChannelUseCase';
 import { UpdateChannelUseCase } from 'App/Modules/Channel/UseCases/Channel/UpdateChannelUseCase/UpdateChannelUseCase';
 import { ChannelValidator } from 'App/Modules/Channel/Validators/Channel';
@@ -73,5 +74,22 @@ export default class ChannelsController {
     const streamKey = await generateStreamKeyByChannelUseCase.execute(channelId);
 
     return response.json(streamKey);
+  }
+
+  public async list({ request, response }: HttpContextContract): Promise<void> {
+    const page = request.input('page', 1);
+    const perPage = request.input('per_page', 20);
+    const search = request.input('search', '');
+    const online = request.input('online', null);
+
+    const listOnlineChannelsUseCase = container.resolve(ListOnlineChannelsUseCase);
+    const channels = await listOnlineChannelsUseCase.execute({
+      online,
+      page,
+      perPage,
+      search,
+    });
+
+    return response.json(channels);
   }
 }

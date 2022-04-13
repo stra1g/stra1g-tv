@@ -65,7 +65,6 @@ test.group('Store Streaming', (group) => {
     try {
       await storeStreamingUseCase.execute(data);
     } catch (error) {
-      console.log(error);
       assert.instanceOf(error, AppException);
     }
   });

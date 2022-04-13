@@ -11,9 +11,12 @@ import {
   ModelQueryBuilderContract,
   scope,
   afterCreate,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm';
 import User from 'App/Modules/User/Models/User';
 import ChannelRole from './ChannelRole';
+import Streaming from './Streaming';
 
 export default class Channel extends BaseModel {
   @column({ isPrimary: true })
@@ -50,6 +53,9 @@ export default class Channel extends BaseModel {
     pivotTable: 'user_channel_roles',
   })
   public channelRoles: ManyToMany<typeof ChannelRole>;
+
+  @hasMany(() => Streaming)
+  public streamings: HasMany<typeof Streaming>;
 
   /**
    * Hooks
