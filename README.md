@@ -15,7 +15,6 @@ docker-compose up -d
 
 ## Accessing APIs
 #### In the project's root, you can find a json file to use on insomnia software to test the available apis
-&emsp; 
 
 ## Using OBS
 #### With OBS open, go to settings -> transmission and set in the server field the following:
