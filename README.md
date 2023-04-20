@@ -52,8 +52,8 @@
 # Setup
 
 ```
-$ docker-compose up -d
 $ cp .env.example .env
+$ docker-compose up -d
 ```
 
 ###### Obs: env variables available on # Mail section needs to be filled by you if you want to test mail send
