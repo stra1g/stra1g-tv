@@ -19,6 +19,7 @@ test.group('Create Channel', (group) => {
       name: 'channel_name',
       description: 'channel_description',
       user_id: 923,
+      stream_key: 'any_key',
     };
 
     const channel = await createChannelUseCase.execute(data);
@@ -33,12 +34,14 @@ test.group('Create Channel', (group) => {
       name: 'channel_name',
       description: 'channel_description',
       user_id: 923,
+      stream_key: 'anykey',
     };
 
     await channelsRepositoryInMemory.store({
       name: 'another_channel_name',
       description: 'another_channel_description',
       user_id: data.user_id,
+      stream_key: 'anykey',
     });
 
     try {
