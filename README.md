@@ -22,8 +22,8 @@
 - [Technologies](#technologies)
 - [Setup](#setup)
 - [Installation](#installation)
-- [See the magic](#see-the-magic)
-- [Automated Tests](#tests)
+- [See the magic](#see-the-magic-star)
+- [Automated Tests](#automated-tests)
 
 ## Database modeling
 
