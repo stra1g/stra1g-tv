@@ -25,7 +25,6 @@
 - [Use Cases](#use-cases)
 - [Technologies](#technologies)
 - [Setup](#setup)
-- [Installation](#installation)
 - [See the magic](#see-the-magic-star)
 - [Automated Tests](#automated-tests)
 
@@ -54,28 +53,26 @@
 - Docker / Docker Compose
 
 # Setup
-
 ```
 $ cp .env.example .env
 $ docker-compose up -d
+$ docker exec -it stra1g-tv /bin/sh
+$ node ace migration:run
 ```
 
 ###### Obs: env variables available on # Mail section needs to be filled by you if you want to test mail send
 
 ###### Obs: All endpoints are available in insomnia_apis.json file in root folder. Use insomnia software to test it
 
-## Installation
-
-```bash
-$ npm install
-or
-$ yarn
-```
-
 ## See the magic :star:
+#### Call the following APIS
+ - POST - /users | Create your account
+ - POST - /sessions | Log in
+ - POST - /channels | Create your channel
+ - POST - /streamings | Create a new streaming
+ - GET - /channels/:id/stream_key | Get your stream_key
 
 #### Using OBS
-
 ##### With OBS open, go to settings -> transmission and set in the server field the following:
 
 ```
@@ -87,19 +84,10 @@ rtmp://localhost/live
 ```
 YOUR_USERNAME?key=YOUR_STREAM_KEY
 ```
-
-##### Get your stream key by accessing this following API:
-
-```
-GET - channels/:id/stream_key
-```
+###### Obs: copy your stream key by the last HTTP request called
 
 ##### After this just click on start streaming and it is going to start!
-
-&emsp;
-
 #### Watching the stream
-
 ##### To watch your stream you can go to your browser and type following url
 
 ```
@@ -119,8 +107,10 @@ rtmp://localhost:1935/live/YOUR_USERNAME
 ## Automated Tests
 
 ```bash
+$ npm install
 $ npm run test
 or
+$ yarn
 $ yarn test
 ```
 
